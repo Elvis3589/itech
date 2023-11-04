@@ -1,0 +1,44 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="encabezado.css">
+    </head>
+    <body>
+        <header class="navbar">
+            <div class="navbar-left">
+                <a href="#"><img src="img/logo.png" alt="Logo de Mi Sitio Web"></a>
+            </div>
+            <div class="navbar-right">
+                <div class="menu-icon">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <ul>
+                    <li><a class="nav-link" href="index.jsp">Inicio</a></li>
+                    <li><a class="nav-link" href="publicaciones.jsp">Publicaciones</a></li>
+                    <li><a class="nav-link" href="tienda.jsp">Tienda</a></li>
+                    <li class="dropdown">
+                        <a class="nav-link" href="#">Michael &#9660;</a>
+                        <div class="dropdown-content">
+                            <a href="perfil.jsp">Perfil</a>
+                            <a href="mispublicaciones.jsp">Mis publicaciones</a>
+                            <a href="login.jsp">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <script src="menu.js"></script>
+    </body>
+    <script> document.addEventListener("DOMContentLoaded", function () {
+            const menuIcon = document.querySelector(".menu-icon");
+            const navbar = document.querySelector(".navbar");
+
+            menuIcon.addEventListener("click", function () {
+                navbar.classList.toggle("active");
+            });
+        });
+    </script>
+</html>

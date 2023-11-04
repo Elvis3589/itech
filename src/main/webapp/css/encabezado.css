@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    background-color: cyan;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-left {
+    flex: 1;
+}
+
+.navbar-left a {
+    text-decoration: none;
+}
+
+.navbar-left img {
+    max-width: 100px;
+    vertical-align: middle;
+    transition: transform 0.3s;
+}
+
+.navbar-left img:hover {
+    transform: scale(1.1);
+}
+
+.navbar-right ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-right ul li {
+    margin-right: 20px;
+    position: relative;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: navy;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    color: blanchedalmond;
+    background-color: darkturquoise;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3498db;
+    width: 125px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    border: 2px solid navy;
+}
+
+.dropdown-content a {
+    color: blanchedalmond;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.navbar-right .dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    background-color: darkturquoise;
+}
+
+.dropdown-content a {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content a:hover {
+    background-color: black;
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: navy;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-right ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: cyan;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid navy;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .navbar.active ul {
+        display: flex;
+    }
+}

@@ -1,0 +1,355 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.profile-info {
+    width: 18%;
+    float: left;
+    padding: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 2%;
+
+
+}
+
+
+.rounded-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info:hover {
+    background-color: #e0e0e0;
+}
+
+.profile-info .card {
+    background-color: transparent;
+    border: none;
+}
+.card-title {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.card-text {
+    font-size: 0.98rem;
+}
+
+.text-body-secondary {
+    font-size: 0.85rem;
+}
+
+.comment-container .comment .comment-username {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+}
+
+.comment-container .comment .comment-text {
+
+    font-size: 0.98rem;
+}
+
+.profile-info img {
+    width: 100%;
+}
+.button-container .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+}
+
+.button-container .btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.button-container .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.button-container .btn:hover {
+    background-color: #007bff;
+}
+
+.publications {
+    width: 70%;
+    padding: 20px;
+    float: left;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+}
+
+.publications:hover {
+    transform: scale(1.02);
+}
+
+
+.card-header {
+    width: 70%;
+    padding: 20px;
+    float: left;
+    background-color: darkblue;
+    color: #fff;
+    padding: 10px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+
+    margin-top: 2%;
+}
+
+.card-header:hover {
+    background-color: #2980b9;
+}
+
+.write-button {
+    background-color: #fff;
+    color: #000;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    outline: none;
+    text-align: center;
+}
+
+.write-button:hover {
+    background-color: #f5f5f5;
+}
+
+.write-button:focus {
+    outline: none;
+}
+
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 38%;
+    left: 62%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    animation: modal-fade 0.5s ease;
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.modal-content form {
+    width: 100%;
+}
+.modal-content label{
+    display: block;
+    margin-bottom: 15px;
+    width: 97%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.modal-content input,
+.modal-content textarea {
+    display: block;
+    margin-bottom: 15px;
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 15px;
+    background-color: chocolate;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 18px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: darkcyan;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-content button:hover,
+.modal-footer .btn-secondary:hover {
+    background-color: darkorange;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: dodgerblue;
+}
+
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.btn-close:hover {
+    color: #a71c2e;
+}
+
+.comment-container .comment {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.comment-container .comment-text {
+    font-size: 0.98rem;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.comment-button {
+    flex: 0;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.comment-button:hover {
+    background-color: #0056b3;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-body form {
+    margin-bottom: 30px;
+}
+.card-body button{
+    width: 73.2%;
+}
+.card-body input{
+    width: 82%;
+}
+
+@media (max-width: 767px) {
+    .profile-info{
+
+        width: 88%;
+
+    }
+
+    .publications {
+        width: 91%;
+    }
+
+    .card-header {
+        width: 91%;
+    }
+    .card-body .write-button{
+        width: 100%;
+
+    }
+    .card-body .comment-input {
+        width: 95%;
+    }
+    .card-body .comment-button {
+        margin-top: 10px
+    }
+    .modal {
+
+        left: 50%;
+
+    }
+}
+.modal-body .container-fluid form{
+    width: 97%;
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+@media (min-width: 992px) {
+}
