@@ -1,22 +1,30 @@
 package com.example.itech2.entidades;
 
 public class Usuario {
-    private String id_usuario;
+
+    private int idUsuario;
     private String nombre;
     private String apellidos;
     private String email;
     private String contraseña;
-    private String foto;
 
     public Usuario() {
     }
 
-    public String getId_usuario() {
-        return id_usuario;
+    public Usuario(int idUsuario, String nombre, String apellidos, String email, String contraseña) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.contraseña = contraseña;
     }
 
-    public void setId_usuario(String id_usuario) {
-        this.id_usuario = id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -50,15 +58,5 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-    
-    
 
 }

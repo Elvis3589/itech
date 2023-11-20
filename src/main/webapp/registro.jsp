@@ -11,14 +11,14 @@
         <div class="form-container">
             <div class="conta">
                 <h2 class="login-form__title">Regístrate</h2>
-                <form method="post" action="procesar_registro.jsp" class="login-form">
+                <form class="login-form" action="UsuarioServlet?accion=INS" method="post">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="apellido" required>
+                        <input type="text" id="apellido" name="apellidos" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -26,14 +26,16 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
+                        <input type="password" id="password" name="contrasenia" required>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Repetir Contraseña</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <input type="password" id="confirmPassword" name="confirmContrasenia" required>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </form>
+
                 <p class="login-form__link">¿Ya tienes una cuenta? <a href="login.jsp" class="login-link">Iniciar sesión</a></p>
             </div>
         </div>

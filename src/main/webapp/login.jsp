@@ -19,7 +19,7 @@
                 <div class="text-center">
                     <img width="190px" src="img/logo.png" alt="alt" />
                 </div>
-                <form method="post" class="login-form" action="index.jsp">
+                <form class="login-form" action="UsuarioServlet?accion=ACCEDER" method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
