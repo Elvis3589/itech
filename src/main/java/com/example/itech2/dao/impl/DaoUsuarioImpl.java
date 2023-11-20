@@ -1,9 +1,9 @@
 package com.example.itech2.dao.impl;
 
+import com.example.itech2.config.AESUtil;
 import com.example.itech2.config.Conexion;
 import com.example.itech2.dao.DaoUsuario;
 import com.example.itech2.entidades.Usuario;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,14 +27,14 @@ public class DaoUsuarioImpl implements DaoUsuario {
     @Override
     public boolean registrarUsuario(Usuario usuario) {
         try (Connection connection = conexion.Conectar()) {
-            String sql = "INSERT INTO Usuarios (nombre, apellidos, email, contraseña) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO usuarios(nombre, apellidos, email, contraseña) VALUES (?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, usuario.getNombre());
                 preparedStatement.setString(2, usuario.getApellidos());
                 preparedStatement.setString(3, usuario.getEmail());
 
-                String hashedContraseña = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
-                preparedStatement.setString(4, hashedContraseña);
+                String encryptedContraseña = AESUtil.encriptar(usuario.getContraseña());
+                preparedStatement.setString(4, encryptedContraseña);
 
                 int filasAfectadas = preparedStatement.executeUpdate();
 
@@ -50,12 +50,13 @@ public class DaoUsuarioImpl implements DaoUsuario {
             mensaje = "Error al registrar el usuario: " + e.getMessage();
             return false;
         }
+
     }
 
     @Override
     public Usuario obtenerUsuarioPorEmail(String email) {
         try (Connection connection = conexion.Conectar()) {
-            String sql = "SELECT * FROM Usuarios WHERE email = ?";
+            String sql = "SELECT * FROM usuarios WHERE email = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, email);
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {

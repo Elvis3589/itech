@@ -33,11 +33,13 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
+<!-- Agrega esta dependencia al archivo pom.xml -->
+<dependency>
+    <groupId>javax</groupId>
+    <artifactId>javaee-api</artifactId>
+    <version>8.0</version> <!-- o la versión que estás utilizando -->
+    <scope>provided</scope>
+</dependency>
 
     </dependencies>
     

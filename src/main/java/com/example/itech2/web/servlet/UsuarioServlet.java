@@ -1,9 +1,9 @@
 package com.example.itech2.web.servlet;
 
+import com.example.itech2.config.AESUtil;
 import com.example.itech2.dao.DaoUsuario;
 import com.example.itech2.dao.impl.DaoUsuarioImpl;
 import com.example.itech2.entidades.Usuario;
-import org.mindrot.jbcrypt.BCrypt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -42,8 +42,8 @@ public class UsuarioServlet extends HttpServlet {
                 nuevoUsuario.setApellidos(apellidos);
                 nuevoUsuario.setEmail(email);
 
-                String hashedContraseña = BCrypt.hashpw(contraseña, BCrypt.gensalt());
-                nuevoUsuario.setContraseña(hashedContraseña);
+                String encryptedContraseña = AESUtil.encriptar(contraseña);
+                nuevoUsuario.setContraseña(encryptedContraseña);
 
                 if (daoUsuario.registrarUsuario(nuevoUsuario)) {
                     response.sendRedirect("login.jsp");
@@ -56,25 +56,27 @@ public class UsuarioServlet extends HttpServlet {
 
         } else if (accion.equals("ACCEDER")) {
             String email = request.getParameter("email");
-            String contraseña = request.getParameter("password");
+            String contraseña = request.getParameter("contrasenia");
 
             Usuario usuario = daoUsuario.obtenerUsuarioPorEmail(email);
-
             if (usuario != null) {
-                System.out.println("Contraseña en la base de datos: " + usuario.getContraseña());
+                String decryptedContraseña = AESUtil.desencriptar(usuario.getContraseña());
+
+                String encryptedContraseña = AESUtil.encriptar(contraseña);
+
+                if (decryptedContraseña != null && decryptedContraseña.equals(encryptedContraseña)) {
+                    request.getSession().setAttribute("usuario", usuario);
+                    request.getSession().setAttribute("nombreUsuario", usuario.getNombre());
+
+                    target = "index.jsp";
+                } else {
+                    request.setAttribute("mensajeError", "Contraseña incorrecta");
+                }
+            } else {
+                System.out.println("Usuario no encontrado. Permaneciendo en login.jsp.");
             }
 
-            if (usuario != null && BCrypt.checkpw(contraseña, usuario.getContraseña())) {
-                request.getSession().setAttribute("usuario", usuario);
-                response.sendRedirect("index.jsp");
-                return;
-            } else {
-                request.setAttribute("mensajeError", "Email o contraseña incorrectos");
-                target = "login.jsp";
-            }
-            if (!target.isEmpty()) {
-                request.getRequestDispatcher(target).forward(request, response);
-            }
+            request.getRequestDispatcher(target).forward(request, response);
         }
     }
 

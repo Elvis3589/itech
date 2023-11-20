@@ -19,7 +19,7 @@
                 <div class="text-center">
                     <img width="190px" src="img/logo.png" alt="alt" />
                 </div>
-                <form class="login-form" action="UsuarioServlet?accion=ACCEDER" method="post">
+                <form class="login-form" action="UsuarioServlet?accion=ACCEDER" method="post" accept-charset="UTF-8">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
@@ -27,7 +27,7 @@
 
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" name="password" required>
+                        <input type="password" id="password" name="contrasenia" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                 </form>
