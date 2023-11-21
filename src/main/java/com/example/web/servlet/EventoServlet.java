@@ -15,6 +15,7 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.List;
 
 @WebServlet(name = "EventoServlet", urlPatterns = {"/EventoServlet"})
 @MultipartConfig
@@ -72,6 +73,10 @@ public class EventoServlet extends HttpServlet {
                 target = "gestionevento.jsp";
             }
 
+        } else if (accion.equals("MOSTRAR_EVENTOS")) {
+            List<Eventos> eventos = daoEvento.obtenerEventos();
+            request.setAttribute("eventos", eventos);
+            target = "reservaevento.jsp";
         }
 
         request.getRequestDispatcher(target).forward(request, response);
@@ -88,4 +93,11 @@ public class EventoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
 }

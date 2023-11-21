@@ -6,7 +6,11 @@ import com.example.entidades.Eventos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DaoEventoImpl implements DaoEvento {
 
@@ -19,9 +23,9 @@ public class DaoEventoImpl implements DaoEvento {
     @Override
     public boolean registrarEvento(Eventos evento) {
         try (Connection connection = conexion.Conectar()) {
-            String sql = "INSERT INTO eventos (id_usuario, nombre, apellidos, email, nombre_evento, " +
-                    "lugar, hora, fecha, celular, descripcion, max_cantidad, imagen_evento) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO eventos (id_usuario, nombre, apellidos, email, nombre_evento, "
+                    + "lugar, hora, fecha, celular, descripcion, max_cantidad, imagen_evento) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, evento.getIdUsuario());
@@ -45,6 +49,42 @@ public class DaoEventoImpl implements DaoEvento {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Eventos> obtenerEventos() {
+        List<Eventos> eventos = new ArrayList<>();
+
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT * FROM eventos";
+
+            try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+
+                while (resultSet.next()) {
+                    Eventos evento = new Eventos(
+                            resultSet.getInt("id_evento"),
+                            resultSet.getInt("id_usuario"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("apellidos"),
+                            resultSet.getString("email"),
+                            resultSet.getString("nombre_evento"),
+                            resultSet.getString("lugar"),
+                            resultSet.getString("hora"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("celular"),
+                            resultSet.getString("descripcion"),
+                            resultSet.getInt("max_cantidad"),
+                            resultSet.getBytes("imagen_evento")
+                    );
+
+                    eventos.add(evento);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return eventos;
     }
 
 }
