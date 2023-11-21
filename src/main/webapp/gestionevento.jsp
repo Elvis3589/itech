@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registrar Evento Universitario</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
@@ -25,7 +25,7 @@
             <div class="header">
                 <h1>Registrar Evento Universitario</h1>
             </div>
-            <form action="EventServlet?accion=INS" method="post" class="event-form">
+            <form method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" required>

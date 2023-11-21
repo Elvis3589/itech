@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private final String url = "jdbc:mysql://localhost:3306/red_social";
+    private final String url = "jdbc:mysql://localhost:3306/red_social?useUnicode=true&characterEncoding=UTF-8";
+
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String user = "root";
     private final String pass = "";

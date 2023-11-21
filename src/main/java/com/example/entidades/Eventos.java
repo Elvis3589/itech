@@ -3,23 +3,24 @@ package com.example.entidades;
 import java.sql.Date;
 
 public class Eventos {
+
     private int idEvento;
-    private int idUsuario;  
+    private int idUsuario;
     private String nombre;
     private String apellidos;
     private String email;
     private String nombreEvento;
     private String lugar;
     private String hora;
-    private Date fecha;  
+    private Date fecha;
     private String celular;
     private String descripcion;
     private int maxCantidad;
-    private byte[] imagenEvento;  // Cambiado a byte[]
+    private byte[] imagenEvento; 
 
-    public Eventos(int idEvento, int idUsuario, String nombre, String apellidos, String email, 
-                   String nombreEvento, String lugar, String hora, Date fecha, 
-                   String celular, String descripcion, int maxCantidad, byte[] imagenEvento) {
+    public Eventos(int idEvento, int idUsuario, String nombre, String apellidos, String email,
+            String nombreEvento, String lugar, String hora, Date fecha,
+            String celular, String descripcion, int maxCantidad, byte[] imagenEvento) {
         this.idEvento = idEvento;
         this.idUsuario = idUsuario;
         this.nombre = nombre;
