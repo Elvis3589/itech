@@ -7,16 +7,19 @@ public class Usuario {
     private String apellidos;
     private String email;
     private String contraseña;
+    private byte[] imagen;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombre, String apellidos, String email, String contraseña) {
+    public Usuario(int idUsuario, String nombre, String apellidos, String email, String contraseña, byte[] imagen) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.contraseña = contraseña;
+                this.imagen = imagen;
+
     }
 
     public int getIdUsuario() {
@@ -58,5 +61,11 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+    public byte[] getImagen() {
+        return imagen;
+    }
 
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
 }

@@ -1,3 +1,5 @@
+<%@page import="java.util.Base64"%>
+<%@page import="com.example.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,13 +14,37 @@
         <%@include file="WEB-INF/jspf/encabezado.jspf" %>
         <div class="profile-info1">
             <div class="card">
-                <img src="img/imguser/perfil1.jpg" class="rounded-image" alt="Profile Image">
-                <h5 style="text-align: center; font-size: 20px">Michael Rojas</h5>
-                <p class="card-text" style="text-align: center; margin-bottom: 40px;">Sleandroteza@gmail.com</p>
+                <%
+                    Usuario usuario = (Usuario) session.getAttribute("usuario");
+                    byte[] imagen = (usuario != null && usuario.getImagen() != null) ? usuario.getImagen() : null;
+                %>
+
+                <% if (imagen != null) {%>
+                <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imagen)%>" class="rounded-image" alt="Profile Image">
+                <% } %>
+
+                <h5 style="text-align: center; font-size: 20px">
+                    <% if (usuario != null) {%>
+                    <%= usuario.getNombre() + " " + usuario.getApellidos()%>
+                    <% } else { %>
+                    Nombre de Usuario
+                    <% } %>
+                </h5>
+
+                <p class="card-text" style="text-align: center; margin-bottom: 40px;">
+                    <% if (usuario != null) {%>
+                    <%= usuario.getEmail()%>
+                    <% } else { %>
+                    Correo de Usuario
+                    <% }%>
+                </p>
+
                 <div class="button-container">
                     <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
                 </div>
             </div>
+
+
         </div>
         <section class="eventos-esperados section-right">
             <h2>Eventos más Esperados</h2>

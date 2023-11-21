@@ -10,22 +10,12 @@ public class Conexion {
     private final String user = "root";
     private final String pass = "";
 
-    public Connection Conectar() throws SQLException {  
-        Connection con = null;
+    public Connection Conectar() throws SQLException {
         try {
-            Class.forName(DRIVER).newInstance();
-
-            con = DriverManager.getConnection(url, user, pass);
-
-        } catch (ClassNotFoundException | 
-                IllegalAccessException | 
-                InstantiationException | 
-                SQLException e) {
-
-            throw new SQLException(e.getMessage());
+            Class.forName(DRIVER);
+            return DriverManager.getConnection(url, user, pass);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new SQLException("Error al conectar a la base de datos: " + e.getMessage());
         }
-        
-        return con;
-    }  
-
+    }
 }

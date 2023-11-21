@@ -4,15 +4,20 @@ import com.example.config.AESUtil;
 import com.example.dao.DaoUsuario;
 import com.example.dao.impl.DaoUsuarioImpl;
 import com.example.entidades.Usuario;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
+@MultipartConfig
+
 public class UsuarioServlet extends HttpServlet {
 
     private final DaoUsuario daoUsuario = new DaoUsuarioImpl();
@@ -52,6 +57,24 @@ public class UsuarioServlet extends HttpServlet {
                     request.setAttribute("mensajeError", "Error al registrar el usuario: " + daoUsuario.getMensaje());
                     target = "registro.jsp";
                 }
+            }
+        } else if (accion.equals("GUARDAR_CAMBIOS")) {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            int idUsuario = usuario.getIdUsuario();
+
+            Part filePart = request.getPart("imagen");
+            InputStream inputStream = filePart.getInputStream();
+            byte[] imagenBytes = inputStream.readAllBytes();
+
+            if (daoUsuario.actualizarImagenUsuario(idUsuario, imagenBytes)) {
+                usuario.setImagen(imagenBytes);
+                request.getSession().setAttribute("usuario", usuario);
+
+                response.sendRedirect("index.jsp");
+                return;
+            } else {
+                request.setAttribute("mensajeError", "Error al actualizar la imagen: " + daoUsuario.getMensaje());
+                target = "perfil.jsp";
             }
 
         } else if (accion.equals("ACCEDER")) {

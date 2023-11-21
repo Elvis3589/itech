@@ -9,4 +9,7 @@ public interface DaoUsuario {
     boolean registrarUsuario(Usuario usuario);
 
     Usuario obtenerUsuarioPorEmail(String email);
+
+    boolean actualizarImagenUsuario(int idUsuario, byte[] imagen);
+
 }
