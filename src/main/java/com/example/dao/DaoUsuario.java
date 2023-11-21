@@ -1,6 +1,6 @@
-package com.example.itech2.dao;
+package com.example.dao;
 
-import com.example.itech2.entidades.Usuario;
+import com.example.entidades.Usuario;
 
 public interface DaoUsuario {
 

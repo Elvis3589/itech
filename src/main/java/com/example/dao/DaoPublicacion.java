@@ -1,6 +1,6 @@
-package com.example.itech2.dao;
+package com.example.dao;
 
-import com.example.itech2.entidades.Publicacion;
+import com.example.entidades.Publicacion;
 import java.util.List;
 
 public interface DaoPublicacion {

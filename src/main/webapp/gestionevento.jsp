@@ -25,7 +25,7 @@
             <div class="header">
                 <h1>Registrar Evento Universitario</h1>
             </div>
-            <form action="procesarEvento.jsp" method="post" enctype="multipart/form-data" class="event-form">
+            <form action="EventServlet?accion=INS" method="post" class="event-form">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" required>
@@ -78,7 +78,7 @@
 
                 <div class="form-group">
                     <label for="imagen">Imagen del Evento:</label>
-                    <input type="file" name="imagen" accept="image/*" required>
+                    <input type="file" name="imagen" required>
                 </div>
 
                 <div class="form-group">

@@ -1,9 +1,9 @@
-package com.example.itech2.web.servlet;
+package com.example.web.servlet;
 
-import com.example.itech2.config.AESUtil;
-import com.example.itech2.dao.DaoUsuario;
-import com.example.itech2.dao.impl.DaoUsuarioImpl;
-import com.example.itech2.entidades.Usuario;
+import com.example.config.AESUtil;
+import com.example.dao.DaoUsuario;
+import com.example.dao.impl.DaoUsuarioImpl;
+import com.example.entidades.Usuario;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

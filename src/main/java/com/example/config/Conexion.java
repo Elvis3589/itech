@@ -1,4 +1,4 @@
-package com.example.itech2.config;
+package com.example.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

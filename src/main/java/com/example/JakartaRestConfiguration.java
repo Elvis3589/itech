@@ -1,4 +1,4 @@
-package com.example.itech2;
+package com.example;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

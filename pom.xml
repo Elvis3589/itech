@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>itech2</artifactId>
+    <artifactId>itech</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>itech2-1.0-SNAPSHOT</name>
+    <name>itech-1.0-SNAPSHOT</name>
     
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -33,13 +33,13 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.2.0</version>
         </dependency>
-<!-- Agrega esta dependencia al archivo pom.xml -->
-<dependency>
-    <groupId>javax</groupId>
-    <artifactId>javaee-api</artifactId>
-    <version>8.0</version> <!-- o la versión que estás utilizando -->
-    <scope>provided</scope>
-</dependency>
+        <!-- Agrega esta dependencia al archivo pom.xml -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version> <!-- o la versión que estás utilizando -->
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
     

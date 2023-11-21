@@ -1,6 +1,6 @@
 package com.example.test;
 
-import com.example.itech2.config.Conexion;
+import com.example.config.Conexion;
 import java.sql.Connection;
 import java.sql.SQLException;
 

@@ -1,9 +1,9 @@
-package com.example.itech2.dao.impl;
+package com.example.dao.impl;
 
-import com.example.itech2.config.AESUtil;
-import com.example.itech2.config.Conexion;
-import com.example.itech2.dao.DaoUsuario;
-import com.example.itech2.entidades.Usuario;
+import com.example.config.AESUtil;
+import com.example.config.Conexion;
+import com.example.dao.DaoUsuario;
+import com.example.entidades.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

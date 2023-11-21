@@ -1,8 +1,8 @@
-package com.example.itech2.dao.impl;
+package com.example.dao.impl;
 
-import com.example.itech2.config.Conexion;
-import com.example.itech2.dao.DaoPublicacion;
-import com.example.itech2.entidades.Publicacion;
+import com.example.config.Conexion;
+import com.example.dao.DaoPublicacion;
+import com.example.entidades.Publicacion;
 import java.util.List;
 
 public class DaoPublicacionImpl implements DaoPublicacion{

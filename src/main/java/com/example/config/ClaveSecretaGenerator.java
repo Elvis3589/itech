@@ -1,4 +1,4 @@
-package com.example.itech2.config;
+package com.example.config;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;

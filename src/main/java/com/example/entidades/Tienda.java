@@ -1,4 +1,4 @@
-package com.example.itech2.entidades;
+package com.example.entidades;
 
 public class Tienda {
     private String id_tienda;
