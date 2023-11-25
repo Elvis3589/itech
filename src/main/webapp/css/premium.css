@@ -1,0 +1,156 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+
+}
+
+.container {
+    width: 35%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.premium-title {
+    color: navy;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.premium-description {
+    color: #555;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.premium-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #3498db;
+    font-size: 16px;
+    margin-left: 6px;
+    width: 100%;
+
+}
+
+.premium-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    border: 1px solid #e74c3c;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+.premium-input:focus {
+    border-color: #e44d26;
+}
+
+.premium-button {
+        width: 214px;
+
+    background-color: royalblue;
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 6px;
+
+    transition: background-color 0.3s;
+}
+
+.premium-button:hover {
+    background-color: lightseagreen;
+}
+
+.volver-button {
+    background-color: peru;
+    color: #fff;
+    width: 214px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 6px;
+
+    transition: background-color 0.3s;
+}
+
+.volver-button:hover {
+    background-color: darkgoldenrod;
+}
+
+.mes, .ano, .ccv {
+    display: inline-block;
+    width: 28%;
+    vertical-align: top;
+    margin-right: 4%;
+}
+.ccv .premium-input {
+    height: 20px;
+    padding: 12px;
+    margin-left: 6px;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+.mes select,
+.ano select,
+.ccv .premium-input{
+
+    margin-bottom: 10px;
+    margin-left: 6px;
+    border: 1px solid darkblue;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+.mes select:focus,
+.ano select:focus,
+.ccv .premium-input:focus {
+    border-color: #e44d26;
+}
+.nombre .premium-input,
+.numero .premium-input{
+
+    margin-bottom: 10px;
+    margin-left: 6px;
+    border: 1px solid darkblue;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+.mes .premium-input:focus,
+.ano .premium-input:focus{
+    border-color: #e44d26;
+}

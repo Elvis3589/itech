@@ -54,6 +54,11 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detallesevento.css" />
 <% } %>
 
+<% currentPage = request.getRequestURI();
+   if (currentPage.endsWith("premium.jsp")) { %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/premium.css" />
+<% } %>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/encabezado.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login_registro.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/publicaciones.css" />
