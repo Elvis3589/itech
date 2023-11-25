@@ -25,13 +25,13 @@
             if (usuario != null) {
         %>
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<%= usuario.getNombre() %>" required>
+                <input type="text" id="nombre" name="nombre" value="<%= usuario.getNombre() %>" required readonly>
 
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" value="<%= usuario.getApellidos() %>" required>
+                <input type="text" id="apellidos" name="apellidos" value="<%= usuario.getApellidos() %>" required readonly>
 
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" value="<%= usuario.getEmail() %>" required>
+                <input type="email" id="correo" name="correo" value="<%= usuario.getEmail() %>" required readonly>
 
                 <label for="imagen">Subir imagen:</label>
                 <input type="file" id="imagen" name="imagen" accept="image/*">

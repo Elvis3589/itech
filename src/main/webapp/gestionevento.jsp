@@ -1,8 +1,9 @@
+<%@page import="com.example.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registrar Evento Universitario</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
@@ -26,19 +27,24 @@
                 <h1>Registrar Evento Universitario</h1>
             </div>
             <form method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data">
+                <%
+                    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+                    if (usuario != null) {
+                %>
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" value="<%= usuario.getNombre()%>"  required readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" required>
+                    <input type="text" name="apellido" value="<%= usuario.getApellidos()%>" required readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" value="<%= usuario.getEmail()%>" required readonly>
                 </div>
 
                 <div class="form-group">
@@ -84,6 +90,11 @@
                 <div class="form-group">
                     <button type="submit" class="submit-button">Registrar Evento</button>
                 </div>
+                <%
+                    } else {
+                        out.println("Usuario no encontrado en la sesión. Inicie sesión para acceder a esta página.");
+                    }
+                %>
             </form>
         </div>
     </body>
