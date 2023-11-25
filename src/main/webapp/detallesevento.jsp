@@ -1,3 +1,7 @@
+<%@page import="com.example.dao.DaoEvento" %>
+<%@page import="com.example.dao.impl.DaoEventoImpl" %>
+<%@page import="java.util.Base64" %>
+<%@page import="com.example.entidades.Eventos" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -5,7 +9,6 @@
         <meta charset="UTF-8">
         <title>Detalles del evento</title>
     </head>
-
     <body>
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
         <%@include file="WEB-INF/jspf/encabezado.jspf" %>
@@ -13,69 +16,79 @@
             <div class="custom-header"> 
                 <h1>Detalles del Evento</h1>
             </div>
+
+            <%
+                int idEvento = Integer.parseInt(request.getParameter("id"));
+                DaoEvento daoEvento = new DaoEventoImpl();
+
+                Eventos evento = daoEvento.obtenerDetallesEvento(idEvento);
+
+                if (evento != null) {
+            %>
             <div class="product-details">
                 <div class="product-image">
-                    <img src="img/eve/cine.jpg" alt="Imagen del Producto">
+                    <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
                 </div>
 
                 <div class="product-info">
-
                     <div class="product-info-item">
                         <label>Nombre del evento:</label>
-                        <span>Cine Arte: Festival Universitario</span>
+                        <span><%= evento.getNombreEvento()%></span>
                     </div>
                     <div class="product-info-item">
                         <label>Nombre:</label>
-                        <span>Michael </span>
+                        <span><%= evento.getNombre()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Apellido:</label>
-                        <span>Rojas</span>
+                        <span><%= evento.getApellidos()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Correo:</label>
-                        <span>Sleandroteza@gmail.com</span>
+                        <span><%= evento.getEmail()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Lugar:</label>
-                        <span>Las Flores</span>
+                        <span><%= evento.getLugar()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Hora:</label>
-                        <span>6am</span>
+                        <span><%= evento.getHora()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Fecha:</label>
-                        <span>03-12-2024</span>
+                        <span><%= evento.getFecha()%></span>
                     </div>
-
                     <div class="product-info-item">
                         <label>Número de celular:</label>
-                        <span>991596818</span>
+                        <span><%= evento.getCelular()%></span>
                     </div>
-
                     <div class="product-info-item">
-                        <label>Descripcion del evento:</label>
-                        <p>Un festival que presenta películas creadas por estudiantes universitarios. Celebramos la creatividad y el talento cinematográfico emergente, con proyecciones de cortometrajes y largometrajes seguidos de debates con los cineastas.</p>
+                        <label>Descripción del evento:</label>
+                        <p><%= evento.getDescripcion()%></p>
                     </div>
                     <div class="product-info-item">
                         <label>Máxima cantidad de asistentes:</label>
-                        <span>10/20</span>
+                        <span><%= evento.getMaxCantidad()%></span>
                     </div>
                 </div>
-
             </div>
+            <div class="buttons">
+                <form action="EventoServlet" method="post">
+                    <input type="hidden" name="accion" value="RESERVAR_EVENTO">
+                    <input type="hidden" name="idEvento" value="<%= evento.getIdEvento()%>">
+                    <button class="contact-button" type="submit">Reservar evento</button>
+                </form>
 
-        </div>
-        <div class="buttons">
-            <button class="contact-button">Reservar evento</button>
-            <button class="back-button" onclick="window.history.back()">Volver Atrás</button>
+                <button class="back-button" onclick="window.history.back()">Volver Atrás</button>
+            </div>
+            <%
+            } else {
+            %>
+            <p>El evento no se encontró o ha sido eliminado.</p>
+            <%
+                }
+            %>
         </div>
     </body>
 </html>
-

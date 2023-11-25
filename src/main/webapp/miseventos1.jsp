@@ -35,11 +35,15 @@
             <h1>Eventos creados activos</h1>
             <div class="eventos-container">
                 <% if (request.getAttribute("eventosActivos") != null) {
-                List<Eventos> eventosActivos = (List<Eventos>) request.getAttribute("eventosActivos");
-                for (Eventos evento : eventosActivos) {%>
+                        List<Eventos> eventosActivos = (List<Eventos>) request.getAttribute("eventosActivos");
+                        for (Eventos evento : eventosActivos) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
+
+                            <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
+                        </a>
+
                     </div>
                     <div class="informacion-evento">
                         <h2><%= evento.getNombreEvento()%></h2>
