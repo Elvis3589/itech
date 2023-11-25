@@ -15,4 +15,9 @@ public interface DaoEvento {
     Eventos obtenerDetallesEvento(int idEvento);
 
     boolean registrarReserva(int idEvento, int idUsuario);
+
+    List<Eventos> obtenerEventosReservadosPorUsuario(int idUsuario);
+
+    List<Eventos> obtenerEventosFinalizadosPorUsuario(int idUsuario);
+
 }

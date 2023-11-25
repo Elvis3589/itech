@@ -1,3 +1,6 @@
+<%@page import="java.util.Base64"%>
+<%@page import="java.util.List"%>
+<%@page import="com.example.entidades.Eventos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,43 +32,26 @@
         <div class="container">
             <h1>Eventos finalizados</h1>
             <div class="eventos-container">
+                <% if (request.getAttribute("eventosFinalizados") != null) {
+                        List<Eventos> eventosFinalizados = (List<Eventos>) request.getAttribute("eventosFinalizados");
+                        for (Eventos evento : eventosFinalizados) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <img src="img/eve/finalizados/comida.jpg" alt="Imagen del Evento">
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
+                            <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
+                        </a>
                     </div>
                     <div class="informacion-evento">
-                        <h2>Degustacion de Comidas Exoticas</h2>
-                        <p>Sumérgete en un viaje culinario único en nuestro evento de degustación de platos exóticos. En un ambiente encantadormente decorado, podrás saborear una variedad de delicias culinarias de todo el mundo, cuidadosamente preparadas por chefs expertos.</p>
+                        <h2><%= evento.getNombreEvento()%></h2>
+                        <p><%= evento.getDescripcion()%></p>
                     </div>
                 </div>
+                <% }
+                } else { %>
+                <p>No hay eventos finalizados.</p>
+                <% response.sendRedirect("EventoServlet?accion=MOSTRAR_EVENTOS_FINALIZADOS"); %>
+                <% }%>
 
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/finalizados/concierto.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Concierto de Musicos Universitarios</h2>
-                        <p>Únete a nosotros para una emocionante noche de música en vivo, presentada por talentosos estudiantes universitarios. Este concierto es una muestra del increíble talento musical que florece en nuestra comunidad académica.</p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/finalizados/festival.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Festival de Danza</h2>
-                        <p>Únete a nosotros en un emocionante "Festival de Danza". Disfruta de una tarde llena de gracia y talento mientras nuestros bailarines universitarios exhiben sus habilidades en una variedad de estilos de danza. Una experiencia única de arte y movimiento te espera. ¡No faltes!</p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/finalizados/taller.jpeg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Taller de Oritacion de Tesis</h2>
-                        <p>¿Te sientes abrumado por la perspectiva de abordar tu tesis de grado? ¡No estás solo! El taller de orientación de tesis de la Universidad Lucho Carrión está diseñado para brindarte las herramientas y la orientación necesaria.  </p>
-                    </div>
-                </div>
 
             </div>
         </div>

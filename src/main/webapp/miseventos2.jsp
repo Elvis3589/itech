@@ -1,3 +1,6 @@
+<%@page import="java.util.Base64"%>
+<%@page import="java.util.List"%>
+<%@page import="com.example.entidades.Eventos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,47 +32,26 @@
         <div class="container">
             <h1>Eventos reservados en espera</h1>
             <div class="eventos-container">
+                <% if (request.getAttribute("eventosReservados") != null) {
+                List<Eventos> eventosReservados = (List<Eventos>) request.getAttribute("eventosReservados");
+                for (Eventos evento : eventosReservados) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <img src="img/eve/reservados/ajedrez.jpg" alt="Imagen del Evento">
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
+                            <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
+                        </a>
                     </div>
                     <div class="informacion-evento">
-                        <h2>Concurso de Ajedrez</h2>
-                        <p>En el emocionante mundo del ajedrez, te invitamos a participar en un torneo de alto nivel que se celebrará en nuestro moderno polideportivo. Experimenta la estrategia y la destreza mental en un ambiente competitivo y amigable. Este evento reúne a jugadores de todas las edades y niveles.</p>
+                        <h2><%= evento.getNombreEvento()%></h2>
+                        <p><%= evento.getDescripcion()%></p>
                     </div>
                 </div>
-
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/reservados/basquet.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Noche de basquet</h2>
-                        <p>Únete a nosotros para disfrutar de un emocionante juego de basquet universitario. Una noche llena de acción y entretenimiento deportivo te espera. </p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/reservados/voley.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Torneo Universitario de Voleibol</h2>
-                        <p>Un emocionante torneo de voleibol universitario te espera. Únete a la diversión, la competencia y la emoción en el campus. ¡No te lo pierdas!</p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/reservados/teatro.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>"Chillay" Evento de Teatro</h2>
-                        <p>¡Prepárate para una noche de emociones y drama en la Universidad Lucho Carrión! "Chillay" es un evento teatral excepcional que presenta un elenco talentoso de actores universitarios dispuestos a cautivar tu imaginación y emociones.</p>
-                    </div>
-                </div>
-
+                <% }
+            } else { %>
+                <p>No hay eventos reservados.</p>
+                <% response.sendRedirect("EventoServlet?accion=MOSTRAR_EVENTOS_RESERVADOS"); %>
+                <% }%>
             </div>
         </div>
     </body>
 </html>
-
-

@@ -110,6 +110,34 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");
                 target = "detallesevento.jsp?id=" + idEvento;
             }
+        } else if (accion.equals("MOSTRAR_EVENTOS_RESERVADOS")) {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+            if (usuario != null) {
+                int idUsuario = usuario.getIdUsuario();
+
+                List<Eventos> eventosReservados = daoEvento.obtenerEventosReservadosPorUsuario(idUsuario);
+
+                request.setAttribute("eventosReservados", eventosReservados);
+
+                target = "miseventos2.jsp";
+            } else {
+                request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");
+            }
+        } else if (accion.equals("MOSTRAR_EVENTOS_FINALIZADOS")) {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+            if (usuario != null) {
+                int idUsuario = usuario.getIdUsuario();
+
+                List<Eventos> eventosFinalizados = daoEvento.obtenerEventosFinalizadosPorUsuario(idUsuario);
+
+                request.setAttribute("eventosFinalizados", eventosFinalizados);
+
+                target = "miseventos3.jsp";
+            } else {
+                request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");
+            }
         }
 
         request.getRequestDispatcher(target).forward(request, response);

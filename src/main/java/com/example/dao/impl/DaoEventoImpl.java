@@ -56,10 +56,9 @@ public class DaoEventoImpl implements DaoEvento {
         List<Eventos> eventos = new ArrayList<>();
 
         try (Connection connection = conexion.Conectar()) {
-            String sql = "SELECT * FROM eventos";
+            String sql = "SELECT * FROM eventos WHERE fecha >= CURRENT_DATE";
 
             try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
-
                 while (resultSet.next()) {
                     Eventos evento = new Eventos(
                             resultSet.getInt("id_evento"),
@@ -180,6 +179,89 @@ public class DaoEventoImpl implements DaoEvento {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Eventos> obtenerEventosReservadosPorUsuario(int idUsuario) {
+        List<Eventos> eventosReservados = new ArrayList<>();
+
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT e.* FROM eventos e "
+                    + "INNER JOIN reservas r ON e.id_evento = r.id_evento "
+                    + "WHERE r.id_usuario = ? AND e.fecha >= CURRENT_DATE";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idUsuario);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Eventos evento = new Eventos(
+                                resultSet.getInt("id_evento"),
+                                resultSet.getInt("id_usuario"),
+                                resultSet.getString("nombre"),
+                                resultSet.getString("apellidos"),
+                                resultSet.getString("email"),
+                                resultSet.getString("nombre_evento"),
+                                resultSet.getString("lugar"),
+                                resultSet.getString("hora"),
+                                resultSet.getDate("fecha"),
+                                resultSet.getString("celular"),
+                                resultSet.getString("descripcion"),
+                                resultSet.getInt("max_cantidad"),
+                                resultSet.getBytes("imagen_evento")
+                        );
+
+                        eventosReservados.add(evento);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return eventosReservados;
+    }
+
+    @Override
+    public List<Eventos> obtenerEventosFinalizadosPorUsuario(int idUsuario) {
+        List<Eventos> eventosFinalizados = new ArrayList<>();
+
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT * FROM eventos "
+                    + "WHERE (id_usuario = ? OR id_evento IN (SELECT id_evento FROM reservas WHERE id_usuario = ?)) "
+                    + "AND fecha < CURRENT_DATE";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idUsuario);
+                preparedStatement.setInt(2, idUsuario);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Eventos evento = new Eventos(
+                                resultSet.getInt("id_evento"),
+                                resultSet.getInt("id_usuario"),
+                                resultSet.getString("nombre"),
+                                resultSet.getString("apellidos"),
+                                resultSet.getString("email"),
+                                resultSet.getString("nombre_evento"),
+                                resultSet.getString("lugar"),
+                                resultSet.getString("hora"),
+                                resultSet.getDate("fecha"),
+                                resultSet.getString("celular"),
+                                resultSet.getString("descripcion"),
+                                resultSet.getInt("max_cantidad"),
+                                resultSet.getBytes("imagen_evento")
+                        );
+
+                        eventosFinalizados.add(evento);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return eventosFinalizados;
     }
 
 }
