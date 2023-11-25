@@ -1,3 +1,6 @@
+<%@page import="java.util.Base64"%>
+<%@page import="java.util.List"%>
+<%@page import="com.example.entidades.Eventos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,59 +34,25 @@
         <div class="container">
             <h1>Eventos creados activos</h1>
             <div class="eventos-container">
+                <% if (request.getAttribute("eventosActivos") != null) {
+                List<Eventos> eventosActivos = (List<Eventos>) request.getAttribute("eventosActivos");
+                for (Eventos evento : eventosActivos) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <img src="img/eve/creados/danza.jpg" alt="Imagen del Evento">
+                        <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
                     </div>
                     <div class="informacion-evento">
-                        <h2>Festival de Danza</h2>
-                        <p>Únete a nosotros en un emocionante "Festival de Danza". Disfruta de una tarde llena de gracia y talento mientras nuestros bailarines universitarios exhiben sus habilidades en una variedad de estilos de danza. Una experiencia única de arte y movimiento te espera. ¡No faltes!</p>
+                        <h2><%= evento.getNombreEvento()%></h2>
+                        <p><%= evento.getDescripcion()%></p>
                     </div>
                 </div>
-
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/creados/futbol.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Tarde de fútbol universitario</h2>
-                        <p>Únete a nosotros para disfrutar de un emocionante partido de fútbol universitario en nuestro torneo anual. Una tarde llena de acción y entretenimiento deportivo te espera. ¡No te lo pierdas!</p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/creados/salud.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Semana de Cuidado Mental: Rompiendo Estigmas</h2>
-                        <p>Un evento dedicado a promover la conciencia y el cuidado de la salud mental entre los estudiantes universitarios. Ofrecemos talleres, charlas, actividades de relajación y recursos para ayudar a los estudiantes a manejar el estrés y la ansiedad.</p>
-                    </div>
-                </div>
-                <div class="evento">
-                    <div class="imagen-evento">
-                        <img src="img/eve/creados/LimpiezaInicio.jpg" alt="Imagen del Evento">
-                    </div>
-                    <div class="informacion-evento">
-                        <h2>Dia Univesitario Voluntario</h2>
-                        <p>Te invitamos al "Día Universitario Voluntario", una jornada de limpieza y embellecimiento en la comunidad. Únete a otros estudiantes para contribuir al bienestar de nuestro entorno y crear un impacto positivo. Además de hacer una diferencia, tendrás la oportunidad de conocer a otros estudiantes comprometidos. ¡Participa y sé parte de esta jornada de servicio y solidaridad!</p>
-                    </div>
-                </div>
-
+                <% }
+            } else { %>
+                <p>No hay eventos activos.</p>
+                <% response.sendRedirect("EventoServlet?accion=MOSTRAR_EVENTOS_ACTIVOS"); %>
+                <% }%>
             </div>
         </div>
-        <button class="volver-atras" onclick="goBack()">Volver Atrás</button>
     </body>
 </html>
-
-<script>
-    function goBack() {
-        var lastVisitedPage = localStorage.getItem('lastVisitedPage');
-
-        if (lastVisitedPage) {
-            window.location.href = lastVisitedPage;
-        } else {
-            window.location.href = 'index.jsp';
-        }
-    }
-</script>
 

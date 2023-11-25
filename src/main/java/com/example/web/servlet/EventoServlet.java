@@ -3,6 +3,7 @@ package com.example.web.servlet;
 import com.example.dao.DaoEvento;
 import com.example.dao.impl.DaoEventoImpl;
 import com.example.entidades.Eventos;
+import com.example.entidades.Usuario;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -77,6 +78,20 @@ public class EventoServlet extends HttpServlet {
             List<Eventos> eventos = daoEvento.obtenerEventos();
             request.setAttribute("eventos", eventos);
             target = "reservaevento.jsp";
+        } else if (accion.equals("MOSTRAR_EVENTOS_ACTIVOS")) {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+            if (usuario != null) {
+                int idUsuario = usuario.getIdUsuario();
+
+                List<Eventos> eventosActivos = daoEvento.obtenerEventosActivosPorUsuario(idUsuario);
+
+                request.setAttribute("eventosActivos", eventosActivos);
+
+                target = "miseventos1.jsp";
+            } else {
+                request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");
+            }
         }
 
         request.getRequestDispatcher(target).forward(request, response);

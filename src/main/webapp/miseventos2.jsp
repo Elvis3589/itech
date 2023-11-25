@@ -69,18 +69,7 @@
 
             </div>
         </div>
-        <button class="volver-atras" onclick="goBack()">Volver Atrás</button>
     </body>
 </html>
-<script>
-    function goBack() {
-        var lastVisitedPage = localStorage.getItem('lastVisitedPage');
 
-        if (lastVisitedPage) {
-            window.location.href = lastVisitedPage;
-        } else {
-            window.location.href = 'index.jsp';
-        }
-    }
-</script>
 

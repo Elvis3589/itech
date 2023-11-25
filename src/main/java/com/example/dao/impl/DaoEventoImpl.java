@@ -86,5 +86,45 @@ public class DaoEventoImpl implements DaoEvento {
 
         return eventos;
     }
+@Override
+public List<Eventos> obtenerEventosActivosPorUsuario(int idUsuario) {
+    List<Eventos> eventos = new ArrayList<>();
+
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT * FROM eventos WHERE id_usuario = ? AND fecha >= CURRENT_DATE";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idUsuario);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Eventos evento = new Eventos(
+                            resultSet.getInt("id_evento"),
+                            resultSet.getInt("id_usuario"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("apellidos"),
+                            resultSet.getString("email"),
+                            resultSet.getString("nombre_evento"),
+                            resultSet.getString("lugar"),
+                            resultSet.getString("hora"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("celular"),
+                            resultSet.getString("descripcion"),
+                            resultSet.getInt("max_cantidad"),
+                            resultSet.getBytes("imagen_evento")
+                    );
+
+                    eventos.add(evento);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return eventos;
+}
+
+
 
 }

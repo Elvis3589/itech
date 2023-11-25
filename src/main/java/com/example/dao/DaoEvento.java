@@ -9,4 +9,6 @@ public interface DaoEvento {
     boolean registrarEvento(Eventos evento);
 
     List<Eventos> obtenerEventos();
+    
+    List<Eventos> obtenerEventosActivosPorUsuario(int idUsuario);
 }
