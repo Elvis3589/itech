@@ -39,10 +39,10 @@
                         for (Eventos evento : eventosActivos) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
-
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>&origen=miseventos1">
                             <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
                         </a>
+
 
                     </div>
                     <div class="informacion-evento">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <% }
-            } else { %>
+                } else { %>
                 <p>No hay eventos activos.</p>
                 <% response.sendRedirect("EventoServlet?accion=MOSTRAR_EVENTOS_ACTIVOS"); %>
                 <% }%>

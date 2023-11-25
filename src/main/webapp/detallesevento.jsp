@@ -1,12 +1,12 @@
-<%@page import="com.example.dao.DaoEvento" %>
-<%@page import="com.example.dao.impl.DaoEventoImpl" %>
-<%@page import="java.util.Base64" %>
-<%@page import="com.example.entidades.Eventos" %>
+<%@page import="com.example.dao.DaoEvento"%>
+<%@page import="com.example.dao.impl.DaoEventoImpl"%>
+<%@page import="java.util.Base64"%>
+<%@page import="com.example.entidades.Eventos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Detalles del evento</title>
     </head>
     <body>
@@ -22,7 +22,8 @@
                 DaoEvento daoEvento = new DaoEventoImpl();
 
                 Eventos evento = daoEvento.obtenerDetallesEvento(idEvento);
-
+                String origen = request.getParameter("origen");
+                boolean mostrarBotonReserva = !"miseventos1".equals(origen) && !"miseventos2".equals(origen) && !"miseventos3".equals(origen);
                 if (evento != null) {
             %>
             <div class="product-details">
@@ -74,11 +75,13 @@
                 </div>
             </div>
             <div class="buttons">
+                <% if (mostrarBotonReserva) {%>
                 <form action="EventoServlet" method="post">
                     <input type="hidden" name="accion" value="RESERVAR_EVENTO">
                     <input type="hidden" name="idEvento" value="<%= evento.getIdEvento()%>">
                     <button class="contact-button" type="submit">Reservar evento</button>
                 </form>
+                <% } %>
 
                 <button class="back-button" onclick="window.history.back()">Volver Atrás</button>
             </div>

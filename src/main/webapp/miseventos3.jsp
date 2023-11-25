@@ -37,7 +37,7 @@
                         for (Eventos evento : eventosFinalizados) {%>
                 <div class="evento">
                     <div class="imagen-evento">
-                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>&origen=miseventos3">
                             <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
                         </a>
                     </div>
