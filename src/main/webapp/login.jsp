@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
-        <title>Iniciar Sesió</title>
+        <title>Iniciar Sesión</title>
     </head>
     <body>
         <div class="form-container">
