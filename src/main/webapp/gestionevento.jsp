@@ -6,10 +6,8 @@
 
 
 <%
-    // Crear una instancia de DaoPremium
     DaoPremium daoPremium = new DaoPremiumImpl();
 
-    // Resto del código
 %>
 <!DOCTYPE html>
 <html>
@@ -101,8 +99,15 @@
                     <label for="maxCantidad">Máxima Cantidad de Asistentes:</label>
                     <input type="number" name="maxCantidad" required
                            <% if (request.getAttribute("maxCantidadAsistentes") != null) {
-                out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
-            } %>
+                   out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
+               } %>
+                           <%
+                               if (usuario != null) {
+                                   boolean tienePremium = daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario());
+                                   int maxCantidadAsistentes = tienePremium ? 50 : 30;
+                                   out.print("max=\"" + maxCantidadAsistentes + "\"");
+                               }
+                           %>
                            >
                     <small class="form-text text-muted">
                         <%
@@ -114,6 +119,7 @@
                         %>
                     </small>
                 </div>
+
 
 
                 <div class="form-group">

@@ -67,6 +67,17 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("mensajeError", "La cantidad de asistentes excede el límite permitido.");
                 target = "gestionevento.jsp";
             } else {
+                if (usuario != null) {
+                    tienePremium = daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario());
+                    maxCantidadAsistentes = tienePremium ? 50 : 30;
+
+                    if (cantidadAsistentes > maxCantidadAsistentes) {
+                        request.setAttribute("mensajeError", "La cantidad de asistentes excede el límite permitido.");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                        return;
+                    }
+                }
+
                 Eventos nuevoEvento = new Eventos(
                         0,
                         1,
@@ -91,6 +102,7 @@ public class EventoServlet extends HttpServlet {
                     target = "gestionevento.jsp";
                 }
             }
+
         } else if (accion.equals("MOSTRAR_EVENTOS")) {
             List<Eventos> eventos = daoEvento.obtenerEventos();
             request.setAttribute("eventos", eventos);
