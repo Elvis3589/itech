@@ -21,4 +21,6 @@ public interface DaoEvento {
     List<Eventos> obtenerEventosFinalizadosPorUsuario(int idUsuario);
 
     List<Eventos> obtenerEventosPremium();
+    
+    int obtenerCantidadReservasPorEvento(int idEvento);
 }

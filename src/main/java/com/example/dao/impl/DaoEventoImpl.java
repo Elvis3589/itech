@@ -301,7 +301,28 @@ public List<Eventos> obtenerEventosPremium() {
 
     return eventosPremium;
 }
+@Override
+public int obtenerCantidadReservasPorEvento(int idEvento) {
+    int cantidadReservas = 0;
 
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT COUNT(*) FROM reservas WHERE id_evento = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idEvento);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    cantidadReservas = resultSet.getInt(1);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return cantidadReservas;
+}
 
 
 }

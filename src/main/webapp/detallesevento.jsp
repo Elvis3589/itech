@@ -1,8 +1,9 @@
-<%@page import="com.example.dao.DaoEvento"%>
-<%@page import="com.example.dao.impl.DaoEventoImpl"%>
-<%@page import="java.util.Base64"%>
-<%@page import="com.example.entidades.Eventos"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.example.dao.DaoEvento" %>
+<%@ page import="com.example.dao.impl.DaoEventoImpl" %>
+<%@ page import="java.util.Base64" %>
+<%@ page import="com.example.entidades.Eventos" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,6 +73,11 @@
                         <label>Máxima cantidad de asistentes:</label>
                         <span><%= evento.getMaxCantidad()%></span>
                     </div>
+                    <div class="product-info-item">
+                        <label>Cantidad disponible:</label>
+                        <span><%= evento.getMaxCantidad() - daoEvento.obtenerCantidadReservasPorEvento(evento.getIdEvento())%></span>
+                    </div>
+
                 </div>
             </div>
             <div class="buttons">
