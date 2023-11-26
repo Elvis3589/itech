@@ -6,6 +6,7 @@ import com.example.entidades.Premium;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DaoPremiumImpl implements DaoPremium {
@@ -38,5 +39,25 @@ public class DaoPremiumImpl implements DaoPremium {
     @Override
     public String getMensaje() {
         return mensaje;
+    }
+
+    @Override
+    public boolean tieneSuscripcionPremium(int idUsuario) {
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT COUNT(*) FROM suscripciones_premium WHERE id_usuario = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idUsuario);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        return count > 0;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+
+        return false;
     }
 }

@@ -1,7 +1,9 @@
 package com.example.web.servlet;
 
 import com.example.dao.DaoEvento;
+import com.example.dao.DaoPremium;
 import com.example.dao.impl.DaoEventoImpl;
+import com.example.dao.impl.DaoPremiumImpl;
 import com.example.entidades.Eventos;
 import com.example.entidades.Usuario;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class EventoServlet extends HttpServlet {
 
     private final DaoEvento daoEvento = new DaoEventoImpl();
+    private final DaoPremium daoPremium = new DaoPremiumImpl();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,42 +52,55 @@ public class EventoServlet extends HttpServlet {
 
             Part imagenPart = request.getPart("imagen");
             byte[] imagenBytes = obtenerBytesImagen(imagenPart);
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
-            Eventos nuevoEvento = new Eventos(
-                    0,
-                    1,
-                    nombre,
-                    apellidos,
-                    email,
-                    nombreEvento,
-                    lugar,
-                    hora,
-                    fecha,
-                    celular,
-                    descripcion,
-                    maxCantidad,
-                    imagenBytes
-            );
-
-            if (daoEvento.registrarEvento(nuevoEvento)) {
-                response.sendRedirect("index.jsp");
-                return;
-            } else {
-                request.setAttribute("mensajeError", "Error al registrar el evento");
-                target = "gestionevento.jsp";
+            boolean tienePremium = false;
+            if (usuario != null) {
+                int idUsuario = usuario.getIdUsuario();
+                tienePremium = daoPremium.tieneSuscripcionPremium(idUsuario);
             }
 
+            int maxCantidadAsistentes = tienePremium ? 50 : 30;
+
+            int cantidadAsistentes = Integer.parseInt(request.getParameter("maxCantidad"));
+            if (cantidadAsistentes > maxCantidadAsistentes) {
+                request.setAttribute("mensajeError", "La cantidad de asistentes excede el límite permitido.");
+                target = "gestionevento.jsp";
+            } else {
+                Eventos nuevoEvento = new Eventos(
+                        0,
+                        1,
+                        nombre,
+                        apellidos,
+                        email,
+                        nombreEvento,
+                        lugar,
+                        hora,
+                        fecha,
+                        celular,
+                        descripcion,
+                        cantidadAsistentes,
+                        imagenBytes
+                );
+
+                if (daoEvento.registrarEvento(nuevoEvento)) {
+                    response.sendRedirect("index.jsp");
+                    return;
+                } else {
+                    request.setAttribute("mensajeError", "Error al registrar el evento");
+                    target = "gestionevento.jsp";
+                }
+            }
         } else if (accion.equals("MOSTRAR_EVENTOS")) {
             List<Eventos> eventos = daoEvento.obtenerEventos();
             request.setAttribute("eventos", eventos);
             target = "reservaevento.jsp";
-            
+
         } else if (accion.equals("MOSTRAR_EVENTOS_PREMIUM")) {
             List<Eventos> eventosP = daoEvento.obtenerEventosPremium();
             request.setAttribute("eventosP", eventosP);
             target = "index.jsp";
-            
-          
+
         } else if (accion.equals("MOSTRAR_EVENTOS_ACTIVOS")) {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 

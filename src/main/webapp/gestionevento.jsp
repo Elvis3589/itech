@@ -1,5 +1,16 @@
-<%@page import="com.example.entidades.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.example.dao.DaoPremium" %>
+<%@ page import="com.example.dao.impl.DaoPremiumImpl" %>
+<%@ page import="com.example.entidades.Usuario" %>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+
+<%
+    // Crear una instancia de DaoPremium
+    DaoPremium daoPremium = new DaoPremiumImpl();
+
+    // Resto del código
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -79,13 +90,31 @@
 
                 <div class="form-group">
                     <label for="maxCantidad">Máxima Cantidad de Asistentes:</label>
-                    <input type="number" name="maxCantidad" required>
+                    <input type="number" name="maxCantidad" required
+                           <% if (request.getAttribute("maxCantidadAsistentes") != null) {
+                                   out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
+                               } %>
+                           >
                 </div>
 
                 <div class="form-group">
-                    <label for="imagen">Imagen del Evento:</label>
-                    <input type="file" name="imagen" required>
+                    <label for="maxCantidad">Máxima Cantidad de Asistentes:</label>
+                    <input type="number" name="maxCantidad" required
+                           <% if (request.getAttribute("maxCantidadAsistentes") != null) {
+                out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
+            } %>
+                           >
+                    <small class="form-text text-muted">
+                        <%
+                            if (usuario != null) {
+                                boolean tienePremium = daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario());
+                                int maxCantidadAsistentes = tienePremium ? 50 : 30;
+                                out.print("Puede registrar hasta " + maxCantidadAsistentes + " asistentes.");
+                            }
+                        %>
+                    </small>
                 </div>
+
 
                 <div class="form-group">
                     <button type="submit" class="submit-button">Registrar Evento</button>
