@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.example.entidades.Eventos"%>
 <%@page import="java.util.Base64"%>
 <%@page import="com.example.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +14,32 @@
     <body>
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
         <%@include file="WEB-INF/jspf/encabezado.jspf" %>
+        <section class="eventos-esperados section-right">
+            <h2>Eventos más Esperados</h2>
+
+            <div class="eventos-container">
+                <%
+                    List<Eventos> eventosP = (List<Eventos>) request.getAttribute("eventosP");
+                    if (eventosP == null) {
+                        response.sendRedirect("EventoServlet?accion=MOSTRAR_EVENTOS_PREMIUM");
+                    } else {
+                        for (Eventos evento : eventosP) {
+                %>
+                <div class="evento">
+                    <div class="imagen-evento">
+                        <a href="detallesevento.jsp?id=<%= evento.getIdEvento()%>">
+                            <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
+                            <p>   <%= evento.getNombreEvento()%></p>
+
+                        </a>
+                    </div>
+                </div>
+                <%
+                        }
+                    }
+                %>
+            </div>
+        </section>
         <div class="profile-info1">
             <div class="card">
                 <%
@@ -44,45 +72,8 @@
                 </div>
             </div>
 
-
         </div>
-        <section class="eventos-esperados section-right">
-            <h2>Eventos más Esperados</h2>
-            <div class="eventos-container">
-                <div class="evento">
-                    <a href="detallesevento.jsp">
-                        <img src="img/eve/cine.jpg" alt="Evento 1">
-                        <p>Cine Arte: Festival Universitario</p>
-                    </a>
-                </div>
-
-                <div class="evento">
-                    <a href="detallesevento.jsp">
-
-                        <img src="img/eve/bienvenida.png" alt="Evento 2">
-                        <p>Fiesta de Inicio: ¡Bienvenidos a la Familia Universitaria!</p>
-                    </a>
-
-                </div>
-                <div class="evento">
-                    <a href="detallesevento.jsp">
-
-                        <img src="img/eve/tecnologia.png" alt="Evento 3">
-                        <p>Innovación en Acción: Feria Tecnológica Universitaria</p>
-                    </a>
-
-                </div>
-
-                <div class="evento">
-                    <a href="detallesevento.jsp">
-
-                        <img src="img/eve/empleo.png" alt="Evento 4">
-                        <p>Feria de oportunidades laborales</p>
-                    </a>
-
-                </div>
-            </div>
-        </section>
+                
 
         <section class="material-destacados section-right">
             <h2>Materiales más Destacados</h2>

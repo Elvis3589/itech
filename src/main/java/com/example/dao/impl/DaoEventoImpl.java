@@ -263,5 +263,45 @@ public class DaoEventoImpl implements DaoEvento {
 
         return eventosFinalizados;
     }
+    
+@Override
+public List<Eventos> obtenerEventosPremium() {
+    List<Eventos> eventosPremium = new ArrayList<>();
+
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT e.* FROM eventos e "
+                + "INNER JOIN suscripciones_premium sp ON e.id_usuario = sp.id_usuario "
+                + "WHERE e.fecha >= CURRENT_DATE AND sp.fecha_fin >= CURRENT_DATE "
+                + "ORDER BY RAND() LIMIT 4";
+
+        try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
+                Eventos evento = new Eventos(
+                        resultSet.getInt("id_evento"),
+                        resultSet.getInt("id_usuario"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("apellidos"),
+                        resultSet.getString("email"),
+                        resultSet.getString("nombre_evento"),
+                        resultSet.getString("lugar"),
+                        resultSet.getString("hora"),
+                        resultSet.getDate("fecha"),
+                        resultSet.getString("celular"),
+                        resultSet.getString("descripcion"),
+                        resultSet.getInt("max_cantidad"),
+                        resultSet.getBytes("imagen_evento")
+                );
+
+                eventosPremium.add(evento);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return eventosPremium;
+}
+
+
 
 }

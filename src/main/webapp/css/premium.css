@@ -108,7 +108,7 @@ body {
     background-color: darkgoldenrod;
 }
 
-.mes, .ano, .ccv {
+.mes, .ano, .ccv, .monto-pago{
     display: inline-block;
     width: 28%;
     vertical-align: top;
@@ -122,9 +122,22 @@ body {
     transition: border-color 0.3s;
     font-size: 16px;
 }
+
+.monto-pago{
+    margin-top: 15px;
+}
+.monto-pago .premium-input {
+    height: 20px;
+    width: 60px;
+    padding: 12px;
+    margin-left: 6px;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
 .mes select,
 .ano select,
-.ccv .premium-input{
+.ccv .premium-input, .monto-pago .premium-input{
 
     margin-bottom: 10px;
     margin-left: 6px;
@@ -136,9 +149,27 @@ body {
 
 .mes select:focus,
 .ano select:focus,
-.ccv .premium-input:focus {
+.ccv .premium-input:focus, .monto-pago .premium-input:focus{
     border-color: #e44d26;
 }
+
+.monto-pago .premium-input{
+
+    margin-bottom: 10px;
+    margin-left: 6px;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    font-size: 16px;
+    background-color: blue;
+    color: gold;
+    font-weight: bold;
+}
+
+.monto-pago .premium-input:focus{
+    border-color: #e44d26;
+}
+
 .nombre .premium-input,
 .numero .premium-input{
 

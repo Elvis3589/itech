@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <servlet>
+        <servlet-name>PremiumServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.PremiumServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EventoServlet</servlet-name>
         <url-pattern>/EventoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PremiumServlet</servlet-name>
+        <url-pattern>/PremiumServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

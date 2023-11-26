@@ -78,6 +78,13 @@ public class EventoServlet extends HttpServlet {
             List<Eventos> eventos = daoEvento.obtenerEventos();
             request.setAttribute("eventos", eventos);
             target = "reservaevento.jsp";
+            
+        } else if (accion.equals("MOSTRAR_EVENTOS_PREMIUM")) {
+            List<Eventos> eventosP = daoEvento.obtenerEventosPremium();
+            request.setAttribute("eventosP", eventosP);
+            target = "index.jsp";
+            
+          
         } else if (accion.equals("MOSTRAR_EVENTOS_ACTIVOS")) {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
@@ -139,7 +146,6 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");
             }
         }
-
         request.getRequestDispatcher(target).forward(request, response);
     }
 

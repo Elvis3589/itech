@@ -14,7 +14,9 @@
                 <h1 class="premium-title">Función Premium</h1>
             </div>
             <p class="premium-description">¡Adquiere la función premium para disfrutar de características exclusivas!</p>
-            <form method="post" action="ProcesarPagoServlet" class="premium-form">
+            <form method="post" action="PremiumServlet" class="premium-form">
+                <input type="hidden" name="accion" value="INS">
+
                 <div class="form-group">
                     <div class="nombre">
 
@@ -71,6 +73,10 @@
                         <label for="codigoSeguridad" class="premium-label">CVV:</label>
                         <input type="text" name="codigoSeguridad" class="premium-input" required>
                     </div>
+                    <div class="monto-pago">
+                        <label for="montoPago" class="premium-label">Pago:</label>
+                        <input type="text" name="montoPago" class="premium-input" value="S/15.00" readonly>
+                    </div>
 
                 </div>
 
@@ -79,6 +85,7 @@
                     <button type="submit" class="premium-button">Obtener Premium</button>
                     <button type="submit" class="volver-button" onclick="window.history.back()">Volver atrás</button>
                 </div>
+
 
             </form>
         </div>
