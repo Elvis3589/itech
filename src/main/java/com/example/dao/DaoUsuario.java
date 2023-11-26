@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.entidades.Usuario;
+import java.util.List;
 
 public interface DaoUsuario {
 
@@ -12,4 +13,9 @@ public interface DaoUsuario {
 
     boolean actualizarImagenUsuario(int idUsuario, byte[] imagen);
 
+    List<Usuario> obtenerTodosLosUsuarios();
+
+    boolean actualizarUsuario(Usuario usuario);
+
+    boolean eliminarUsuario(int idUsuario);
 }

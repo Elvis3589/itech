@@ -2,63 +2,67 @@
 <%@ page pageEncoding="UTF-8" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <% String currentPage = request.getRequestURI();
-   if (currentPage.endsWith("tienda.jsp")) { %>
+    if (currentPage.endsWith("tienda.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tienda.css" />
 <% } %>
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("index.jsp")) { %>
+    if (currentPage.endsWith("index.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/index.css" />
 <% } %>
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("detallestienda.jsp")) { %>
+    if (currentPage.endsWith("detallestienda.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detallestienda.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("gestionevento.jsp")) { %>
+    if (currentPage.endsWith("gestionevento.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/gestionevento.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("reservaevento.jsp")) { %>
+    if (currentPage.endsWith("reservaevento.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reservaevento.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("miseventos1.jsp")) { %>
+    if (currentPage.endsWith("miseventos1.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/miseventos1.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("miseventos2.jsp")) { %>
+    if (currentPage.endsWith("miseventos2.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/miseventos2.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("miseventos3.jsp")) { %>
+    if (currentPage.endsWith("miseventos3.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/miseventos3.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("mispublicaciones.jsp")) { %>
+    if (currentPage.endsWith("mispublicaciones.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mispublicaciones.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("perfil.jsp")) { %>
+    if (currentPage.endsWith("perfil.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/perfil.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("detallesevento.jsp")) { %>
+    if (currentPage.endsWith("detallesevento.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detallesevento.css" />
 <% } %>
 
 <% currentPage = request.getRequestURI();
-   if (currentPage.endsWith("premium.jsp")) { %>
+    if (currentPage.endsWith("premium.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/premium.css" />
 <% } %>
 
+<% currentPage = request.getRequestURI();
+    if (currentPage.endsWith("administrar.jsp")) { %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/administrar.css" />
+<% }%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/encabezado.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login_registro.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/publicaciones.css" />

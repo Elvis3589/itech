@@ -55,6 +55,9 @@
                         <div class="dropdown-content">
                             <a href="perfil.jsp">Perfil</a>
                             <a href="mispublicaciones.jsp">Mis publicaciones</a>
+                            <c:if test="${sessionScope.esAdmin}">
+                                <a href="administrar.jsp">Administrar</a>
+                            </c:if>
                             <a href="login.jsp">Salir</a>
                         </div>
                     </li>

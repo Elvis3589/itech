@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
 @MultipartConfig
@@ -92,6 +93,8 @@ public class UsuarioServlet extends HttpServlet {
                     request.getSession().setAttribute("nombreUsuario", usuario.getNombre());
                     request.getSession().setAttribute("rol", usuario.getRol());
 
+                    boolean esAdmin = "admin".equals(usuario.getRol());
+                    request.getSession().setAttribute("esAdmin", esAdmin);
                     target = "index.jsp";
                 } else {
                     request.setAttribute("mensajeError", "Contraseña incorrecta");
@@ -99,13 +102,54 @@ public class UsuarioServlet extends HttpServlet {
             } else {
                 System.out.println("Usuario no encontrado. Permaneciendo en login.jsp.");
             }
+        } else if (accion.equals("ADMINISTRAR")) {
+            List<Usuario> listaUsuarios = daoUsuario.obtenerTodosLosUsuarios();
+            request.setAttribute("listaUsuarios", listaUsuarios);
+            target = "administrar.jsp";
+        } else if (accion.equals("EDITAR")) {
+            int idUsuario = Integer.parseInt(request.getParameter("editarId"));
+            String nuevoNombre = request.getParameter("editarNombre");
+            String nuevoApellidos = request.getParameter("editarApellidos");
+            String nuevoEmail = request.getParameter("editarEmail");
+            String nuevoRol = request.getParameter("editarRol");
 
-            request.getRequestDispatcher(target).forward(request, response);
+            Usuario usuarioActualizado = new Usuario();
+            usuarioActualizado.setIdUsuario(idUsuario);
+            usuarioActualizado.setNombre(nuevoNombre);
+            usuarioActualizado.setApellidos(nuevoApellidos);
+            usuarioActualizado.setEmail(nuevoEmail);
+            usuarioActualizado.setRol(nuevoRol);
+
+            if (daoUsuario.actualizarUsuario(usuarioActualizado)) {
+                response.sendRedirect("UsuarioServlet?accion=ADMINISTRAR");
+                return;
+            } else {
+                request.setAttribute("mensajeError", "Error al actualizar el usuario: " + daoUsuario.getMensaje());
+                target = "administrar.jsp";
+            }
+        } else if (accion.equals("ELIMINAR")) {
+            int idUsuarioEliminar = Integer.parseInt(request.getParameter("id"));
+
+            if (daoUsuario.eliminarUsuario(idUsuarioEliminar)) {
+                response.sendRedirect("UsuarioServlet?accion=ADMINISTRAR");
+                return;
+            } else {
+                request.setAttribute("mensajeError", "Error al eliminar el usuario: " + daoUsuario.getMensaje());
+                target = "administrar.jsp";
+            }
         }
+
+        request.getRequestDispatcher(target).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
