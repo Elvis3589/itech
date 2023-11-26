@@ -39,6 +39,14 @@
                     <% }%>
                 </p>
 
+                <p class="card-text" style="text-align: center; margin-bottom: 40px;">
+                    <% if (usuario != null) {%>
+                    <%= "Rol:" + usuario.getRol()%>
+                    <% } else { %>
+                    Rol de Usuario
+                    <% }%>
+                </p>
+
                 <div class="button-container">
                     <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
                 </div>

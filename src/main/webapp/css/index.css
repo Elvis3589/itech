@@ -163,17 +163,25 @@ a {
     margin-right: 2%;
     margin-left: 2%;
     margin-top: 2%;
+    border-radius: 8px;
 }
 
 .profile-info1 .card {
-    background-color: transparent;
-    border: none;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 20px;
+    text-align: center;
 }
 
 .profile-info1 img {
     width: 100%;
+    border-radius: 50%; 
 }
-
+.button-container {
+    margin-top: 20px;
+}
 .button-container .btn {
     width: 100%;
     margin-bottom: 10px;

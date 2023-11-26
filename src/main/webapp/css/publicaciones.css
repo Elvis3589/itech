@@ -15,10 +15,20 @@ body {
     margin-right: 2%;
     margin-left: 2%;
     margin-top: 2%;
-
-
+    border-radius: 8px;
 }
-
+.profile-info .card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+.profile-info img {
+    width: 100%;
+    border-radius: 50%;
+}
 
 .rounded-image {
     width: 100px;
@@ -31,10 +41,7 @@ body {
     background-color: #e0e0e0;
 }
 
-.profile-info .card {
-    background-color: transparent;
-    border: none;
-}
+
 .card-title {
     font-size: 1rem;
     margin-bottom: 5px;
@@ -59,8 +66,8 @@ body {
     font-size: 0.98rem;
 }
 
-.profile-info img {
-    width: 100%;
+.button-container {
+    margin-top: 20px;
 }
 .button-container .btn {
     width: 100%;

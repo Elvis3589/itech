@@ -5,6 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,13 +68,22 @@
                     <% }%>
                 </p>
 
+                <p class="card-text" style="text-align: center; margin-bottom: 40px;">
+                    <% if (usuario != null) {%>
+                    <%= "Rol:" + usuario.getRol()%>
+                    <% } else { %>
+                    Rol de Usuario
+                    <% }%>
+                </p>
+
+
                 <div class="button-container">
                     <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
                 </div>
             </div>
 
         </div>
-                
+
 
         <section class="material-destacados section-right">
             <h2>Materiales más Destacados</h2>

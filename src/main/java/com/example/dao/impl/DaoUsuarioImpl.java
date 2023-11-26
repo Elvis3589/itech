@@ -24,34 +24,35 @@ public class DaoUsuarioImpl implements DaoUsuario {
         return mensaje;
     }
 
-    @Override
-    public boolean registrarUsuario(Usuario usuario) {
-        try (Connection connection = conexion.Conectar()) {
-            String sql = "INSERT INTO usuarios(nombre, apellidos, email, contraseña) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, usuario.getNombre());
-                preparedStatement.setString(2, usuario.getApellidos());
-                preparedStatement.setString(3, usuario.getEmail());
+@Override
+public boolean registrarUsuario(Usuario usuario) {
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "INSERT INTO usuarios(nombre, apellidos, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellidos());
+            preparedStatement.setString(3, usuario.getEmail());
 
-                String encryptedContraseña = AESUtil.encriptar(usuario.getContraseña());
-                preparedStatement.setString(4, encryptedContraseña);
+            String encryptedContraseña = AESUtil.encriptar(usuario.getContraseña());
+            preparedStatement.setString(4, encryptedContraseña);
 
-                int filasAfectadas = preparedStatement.executeUpdate();
+            preparedStatement.setString(5, "usuario");
 
-                if (filasAfectadas > 0) {
-                    mensaje = "Usuario registrado correctamente";
-                    return true;
-                } else {
-                    mensaje = "No se pudo registrar el usuario";
-                    return false;
-                }
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                mensaje = "Usuario registrado correctamente";
+                return true;
+            } else {
+                mensaje = "No se pudo registrar el usuario";
+                return false;
             }
-        } catch (SQLException e) {
-            mensaje = "Error al registrar el usuario: " + e.getMessage();
-            return false;
         }
-
+    } catch (SQLException e) {
+        mensaje = "Error al registrar el usuario: " + e.getMessage();
+        return false;
     }
+}
 
 @Override
 public Usuario obtenerUsuarioPorEmail(String email) {
@@ -66,8 +67,9 @@ public Usuario obtenerUsuarioPorEmail(String email) {
                     String apellidos = resultSet.getString("apellidos");
                     String contraseña = resultSet.getString("contraseña");
                     byte[] imagen = resultSet.getBytes("imagen");
+                    String rol = resultSet.getString("rol"); 
 
-                    return new Usuario(idUsuario, nombre, apellidos, email, contraseña, imagen);
+                    return new Usuario(idUsuario, nombre, apellidos, email, contraseña, imagen, rol);
                 }
             }
         }
@@ -76,6 +78,7 @@ public Usuario obtenerUsuarioPorEmail(String email) {
     }
     return null;
 }
+
 
         @Override
     public boolean actualizarImagenUsuario(int idUsuario, byte[] imagen) {

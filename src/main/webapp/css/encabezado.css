@@ -4,15 +4,7 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-.navbar {
-    background-color: cyan;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
+
 
 .navbar-left {
     flex: 1;
@@ -54,10 +46,6 @@ body {
     border-radius: 5px;
 }
 
-.nav-link:hover {
-    color: blanchedalmond;
-    background-color: darkturquoise;
-}
 
 .dropdown-content {
     display: none;
@@ -73,22 +61,8 @@ body {
     border: 2px solid navy;
 }
 
-.dropdown-content a {
-    color: blanchedalmond;
-    font-weight: bold;
-    font-size: 14px;
-    text-decoration: none;
-    display: block;
-    padding: 10px 15px;
-    transition: background-color 0.3s;
-}
 
-.navbar-right .dropdown:hover .dropdown-content {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    background-color: darkturquoise;
-}
+
 
 .dropdown-content a {
     animation: fadeIn 0.5s ease-in-out forwards;

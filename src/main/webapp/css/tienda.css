@@ -202,8 +202,12 @@ ul li a:hover {
 }
 
 .profile-info .card {
-    background-color: transparent;
-    border: none;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 20px;
+    text-align: center;
 }
 
 .card-body {

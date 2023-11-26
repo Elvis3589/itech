@@ -14,36 +14,44 @@
         <%@include file="WEB-INF/jspf/encabezado.jspf" %>
         <div class="container">
             <div class="profile-info">
-            <div class="card">
-                <%
-                    Usuario usuario = (Usuario) session.getAttribute("usuario");
-                    byte[] imagen = (usuario != null && usuario.getImagen() != null) ? usuario.getImagen() : null;
-                %>
+                <div class="card">
+                    <%
+                        Usuario usuario = (Usuario) session.getAttribute("usuario");
+                        byte[] imagen = (usuario != null && usuario.getImagen() != null) ? usuario.getImagen() : null;
+                    %>
 
-                <% if (imagen != null) {%>
-                <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imagen)%>" class="rounded-image" alt="Profile Image">
-                <% } %>
-
-                <h5 style="text-align: center; font-size: 20px">
-                    <% if (usuario != null) {%>
-                    <%= usuario.getNombre() + " " + usuario.getApellidos()%>
-                    <% } else { %>
-                    Nombre de Usuario
+                    <% if (imagen != null) {%>
+                    <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imagen)%>" class="rounded-image" alt="Profile Image">
                     <% } %>
-                </h5>
 
-                <p class="card-text" style="text-align: center; margin-bottom: 40px;">
-                    <% if (usuario != null) {%>
-                    <%= usuario.getEmail()%>
-                    <% } else { %>
-                    Correo de Usuario
-                    <% }%>
-                </p>
+                    <h5 style="text-align: center; font-size: 20px">
+                        <% if (usuario != null) {%>
+                        <%= usuario.getNombre() + " " + usuario.getApellidos()%>
+                        <% } else { %>
+                        Nombre de Usuario
+                        <% } %>
+                    </h5>
 
-                <div class="button-container">
-                    <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
+                    <p class="card-text" style="text-align: center; margin-bottom: 40px;">
+                        <% if (usuario != null) {%>
+                        <%= usuario.getEmail()%>
+                        <% } else { %>
+                        Correo de Usuario
+                        <% }%>
+                    </p>
+                    
+                    <p class="card-text" style="text-align: center; margin-bottom: 40px;">
+                        <% if (usuario != null) {%>
+                        <%= "Rol:" + usuario.getRol()%>
+                        <% } else { %>
+                        Rol de Usuario
+                        <% }%>
+                    </p>
+
+                    <div class="button-container">
+                        <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 

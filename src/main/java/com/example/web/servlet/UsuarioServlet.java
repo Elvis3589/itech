@@ -90,6 +90,7 @@ public class UsuarioServlet extends HttpServlet {
                 if (decryptedContraseña != null && decryptedContraseña.equals(encryptedContraseña)) {
                     request.getSession().setAttribute("usuario", usuario);
                     request.getSession().setAttribute("nombreUsuario", usuario.getNombre());
+                    request.getSession().setAttribute("rol", usuario.getRol());
 
                     target = "index.jsp";
                 } else {
