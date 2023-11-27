@@ -18,4 +18,8 @@ public interface DaoUsuario {
     boolean actualizarUsuario(Usuario usuario);
 
     boolean eliminarUsuario(int idUsuario);
+
+    String obtenerContraseñaUsuario(int idUsuario);
+
+    boolean actualizarContraseñaUsuario(int idUsuario, String nuevaContraseña);
 }

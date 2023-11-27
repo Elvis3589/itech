@@ -263,66 +263,66 @@ public class DaoEventoImpl implements DaoEvento {
 
         return eventosFinalizados;
     }
-    
-@Override
-public List<Eventos> obtenerEventosPremium() {
-    List<Eventos> eventosPremium = new ArrayList<>();
 
-    try (Connection connection = conexion.Conectar()) {
-        String sql = "SELECT e.* FROM eventos e "
-                + "INNER JOIN suscripciones_premium sp ON e.id_usuario = sp.id_usuario "
-                + "WHERE e.fecha >= CURRENT_DATE AND sp.fecha_fin >= CURRENT_DATE "
-                + "ORDER BY RAND() LIMIT 4";
+    @Override
+    public List<Eventos> obtenerEventosPremium() {
+        List<Eventos> eventosPremium = new ArrayList<>();
 
-        try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
-            while (resultSet.next()) {
-                Eventos evento = new Eventos(
-                        resultSet.getInt("id_evento"),
-                        resultSet.getInt("id_usuario"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("apellidos"),
-                        resultSet.getString("email"),
-                        resultSet.getString("nombre_evento"),
-                        resultSet.getString("lugar"),
-                        resultSet.getString("hora"),
-                        resultSet.getDate("fecha"),
-                        resultSet.getString("celular"),
-                        resultSet.getString("descripcion"),
-                        resultSet.getInt("max_cantidad"),
-                        resultSet.getBytes("imagen_evento")
-                );
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT e.* FROM eventos e "
+                    + "INNER JOIN suscripciones_premium sp ON e.id_usuario = sp.id_usuario "
+                    + "WHERE e.fecha >= CURRENT_DATE AND sp.fecha_fin >= CURRENT_DATE "
+                    + "ORDER BY RAND() LIMIT 4";
 
-                eventosPremium.add(evento);
-            }
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+            try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                while (resultSet.next()) {
+                    Eventos evento = new Eventos(
+                            resultSet.getInt("id_evento"),
+                            resultSet.getInt("id_usuario"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("apellidos"),
+                            resultSet.getString("email"),
+                            resultSet.getString("nombre_evento"),
+                            resultSet.getString("lugar"),
+                            resultSet.getString("hora"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("celular"),
+                            resultSet.getString("descripcion"),
+                            resultSet.getInt("max_cantidad"),
+                            resultSet.getBytes("imagen_evento")
+                    );
 
-    return eventosPremium;
-}
-@Override
-public int obtenerCantidadReservasPorEvento(int idEvento) {
-    int cantidadReservas = 0;
-
-    try (Connection connection = conexion.Conectar()) {
-        String sql = "SELECT COUNT(*) FROM reservas WHERE id_evento = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, idEvento);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    cantidadReservas = resultSet.getInt(1);
+                    eventosPremium.add(evento);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return eventosPremium;
     }
 
-    return cantidadReservas;
-}
+    @Override
+    public int obtenerCantidadReservasPorEvento(int idEvento) {
+        int cantidadReservas = 0;
 
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT COUNT(*) FROM reservas WHERE id_evento = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idEvento);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        cantidadReservas = resultSet.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cantidadReservas;
+    }
 
 }

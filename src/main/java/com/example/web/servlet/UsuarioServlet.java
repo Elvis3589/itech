@@ -63,21 +63,44 @@ public class UsuarioServlet extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             int idUsuario = usuario.getIdUsuario();
 
+            String contraseniaActual = request.getParameter("contrasenia_actual");
+            String nuevaContrasenia = request.getParameter("nueva_contrasenia");
+            String confirmarNuevaContrasenia = request.getParameter("confirmar_nueva_contrasenia");
+
+            String contraseniaGuardada = daoUsuario.obtenerContraseñaUsuario(idUsuario);
+
+            if (nuevaContrasenia != null && !nuevaContrasenia.isEmpty() && nuevaContrasenia.equals(confirmarNuevaContrasenia)) {
+                if (contraseniaActual != null && !contraseniaActual.isEmpty() && contraseniaGuardada != null && AESUtil.desencriptar(contraseniaGuardada).equals(AESUtil.encriptar(contraseniaActual))) {
+                    String nuevaContraseniaEncriptada = AESUtil.encriptar(nuevaContrasenia);
+                    if (daoUsuario.actualizarContraseñaUsuario(idUsuario, nuevaContraseniaEncriptada)) {
+                    } else {
+                        request.setAttribute("mensajeError", "Error al actualizar la contraseña: " + daoUsuario.getMensaje());
+                        target = "perfil.jsp";
+                    }
+                } else {
+                    request.setAttribute("mensajeError", "La contraseña actual es incorrecta");
+                    target = "perfil.jsp";
+                }
+            }
+
             Part filePart = request.getPart("imagen");
             InputStream inputStream = filePart.getInputStream();
             byte[] imagenBytes = inputStream.readAllBytes();
 
-            if (daoUsuario.actualizarImagenUsuario(idUsuario, imagenBytes)) {
-                usuario.setImagen(imagenBytes);
-                request.getSession().setAttribute("usuario", usuario);
-
+            if (imagenBytes.length > 0) {
+                if (daoUsuario.actualizarImagenUsuario(idUsuario, imagenBytes)) {
+                    usuario.setImagen(imagenBytes);
+                    request.getSession().setAttribute("usuario", usuario);
+                    response.sendRedirect("index.jsp");
+                    return;
+                } else {
+                    request.setAttribute("mensajeError", "Error al actualizar la imagen: " + daoUsuario.getMensaje());
+                    target = "perfil.jsp";
+                }
+            } else {
                 response.sendRedirect("index.jsp");
                 return;
-            } else {
-                request.setAttribute("mensajeError", "Error al actualizar la imagen: " + daoUsuario.getMensaje());
-                target = "perfil.jsp";
             }
-
         } else if (accion.equals("ACCEDER")) {
             String email = request.getParameter("email");
             String contraseña = request.getParameter("contrasenia");

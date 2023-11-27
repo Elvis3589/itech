@@ -19,6 +19,7 @@
         </div>
         <form method="post" action="UsuarioServlet?accion=GUARDAR_CAMBIOS" enctype="multipart/form-data">
             <h1 class="form-heading">Formulario de datos personales</h1>
+
             <%
                 Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -32,15 +33,27 @@
             <label for="correo">Correo:</label>
             <input type="email" id="correo" name="correo" value="<%= usuario.getEmail()%>" required readonly>
 
-            <label for="imagen">Subir imagen:</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*" required>
+            <label for="contrasenia_actual">Contraseña Actual:</label>
+            <input type="password" id="contrasenia_actual" name="contrasenia_actual" >
 
+            <label for="nueva_contrasenia">Nueva Contraseña:</label>
+            <input type="password" id="nueva_contrasenia" name="nueva_contrasenia" >
+
+            <label for="confirmar_nueva_contrasenia">Confirmar Nueva Contraseña:</label>
+            <input type="password" id="confirmar_nueva_contrasenia" name="confirmar_nueva_contrasenia" >
+
+            <label for="imagen">Subir imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*">
+            <c:if test="${not empty requestScope.mensajeError}">
+                <div class="error-message">
+                    ${requestScope.mensajeError}
+                </div>
+            </c:if>
             <input type="submit" value="Guardar Cambios">
 
             <div class="premium-button-container">
                 <button type="button" class="button-premium" onclick="window.location.href = 'premium.jsp'">Obtener Premium</button>
             </div>
-
             <% } else { %>
             <% out.println("Usuario no encontrado en la sesión. Inicie sesión para acceder a esta página."); %>
             <% }%>

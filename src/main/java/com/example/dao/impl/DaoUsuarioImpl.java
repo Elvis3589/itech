@@ -161,4 +161,41 @@ public class DaoUsuarioImpl implements DaoUsuario {
         }
     }
 
+    @Override
+    public String obtenerContraseñaUsuario(int idUsuario) {
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "SELECT contraseña FROM usuarios WHERE id_usuario = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idUsuario);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getString("contraseña");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean actualizarContraseñaUsuario(int idUsuario, String nuevaContraseña) {
+        try (Connection connection = conexion.Conectar()) {
+            String sql = "UPDATE usuarios SET contraseña = ? WHERE id_usuario = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                String encryptedContraseña = AESUtil.encriptar(nuevaContraseña);
+                preparedStatement.setString(1, encryptedContraseña);
+                preparedStatement.setInt(2, idUsuario);
+
+                int filasAfectadas = preparedStatement.executeUpdate();
+
+                return filasAfectadas > 0;
+            }
+        } catch (SQLException e) {
+            mensaje = "Error al actualizar la contraseña del usuario: " + e.getMessage();
+            return false;
+        }
+    }
+
 }

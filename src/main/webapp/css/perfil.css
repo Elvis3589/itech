@@ -143,3 +143,15 @@ label[for="imagen"]:hover {
         padding: 10px;
     }
 }
+.error-message {
+    width: 95%;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+
+    text-align: center;
+    margin-left: 0%;
+}

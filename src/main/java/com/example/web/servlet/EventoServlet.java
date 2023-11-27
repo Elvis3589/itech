@@ -77,10 +77,11 @@ public class EventoServlet extends HttpServlet {
                         return;
                     }
                 }
+                int idUsuario = usuario.getIdUsuario();
 
                 Eventos nuevoEvento = new Eventos(
                         0,
-                        1,
+                        idUsuario,
                         nombre,
                         apellidos,
                         email,
