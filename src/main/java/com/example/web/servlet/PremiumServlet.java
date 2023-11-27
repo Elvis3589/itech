@@ -35,20 +35,24 @@ public class PremiumServlet extends HttpServlet {
 
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
-            LocalDateTime fechaInicio = LocalDateTime.now();
-
-            LocalDateTime fechaFin = fechaInicio.plusMonths(1);
-
-            Premium premium = new Premium();
-            premium.setIdUsuario(usuario.getIdUsuario());
-            premium.setFechaInicio(fechaInicio);
-            premium.setFechaFin(fechaFin);
-
-            if (daoPremium.registrarSuscripcionPremium(premium)) {
-                response.sendRedirect("index.jsp");
-            } else {
-                request.setAttribute("mensajeError", "Error al obtener la suscripción premium: " + daoPremium.getMensaje());
+            if (daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario())) {
+                request.setAttribute("mensajeError", "Usted ya cuenta con una suscripción premium");
                 request.getRequestDispatcher("premium.jsp").forward(request, response);
+            } else {
+                LocalDateTime fechaInicio = LocalDateTime.now();
+                LocalDateTime fechaFin = fechaInicio.plusMonths(1);
+
+                Premium premium = new Premium();
+                premium.setIdUsuario(usuario.getIdUsuario());
+                premium.setFechaInicio(fechaInicio);
+                premium.setFechaFin(fechaFin);
+
+                if (daoPremium.registrarSuscripcionPremium(premium)) {
+                    response.sendRedirect("index.jsp");
+                } else {
+                    request.setAttribute("mensajeError", "Error al obtener la suscripción premium: " + daoPremium.getMensaje());
+                    request.getRequestDispatcher("premium.jsp").forward(request, response);
+                }
             }
         } else {
 

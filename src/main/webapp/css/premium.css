@@ -72,7 +72,7 @@ body {
 }
 
 .premium-button {
-        width: 214px;
+    width: 214px;
 
     background-color: royalblue;
     color: #fff;
@@ -184,4 +184,14 @@ body {
 .mes .premium-input:focus,
 .ano .premium-input:focus{
     border-color: #e44d26;
+}
+.error-message {
+    width: 93%;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-left: 1.5%;
 }

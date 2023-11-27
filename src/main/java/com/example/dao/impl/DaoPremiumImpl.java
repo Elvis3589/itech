@@ -20,6 +20,10 @@ public class DaoPremiumImpl implements DaoPremium {
 
     @Override
     public boolean registrarSuscripcionPremium(Premium premium) {
+        if (tieneSuscripcionPremium(premium.getIdUsuario())) {
+            mensaje = "El usuario ya tiene una suscripción activa.";
+            return false;
+        }
         try (Connection connection = conexion.Conectar()) {
             String sql = "INSERT INTO suscripciones_premium (id_usuario, fecha_inicio, fecha_fin) VALUES (?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

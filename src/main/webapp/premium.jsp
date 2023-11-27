@@ -80,10 +80,19 @@
 
                 </div>
 
-
+                <%
+                    String mensajeError = (String) request.getAttribute("mensajeError");
+                    if (mensajeError != null && !mensajeError.isEmpty()) {
+                %>
+                <div class="error-message">
+                    <%= mensajeError%>
+                </div>
+                <%
+                    }
+                %>
                 <div class="form-group" style="display: flex; ">
                     <button type="submit" class="premium-button">Obtener Premium</button>
-                    <button type="submit" class="volver-button" onclick="window.history.back()">Volver atrás</button>
+                    <button type="button" class="volver-button" onclick="window.location.href = 'perfil.jsp'">Volver atrás</button>
                 </div>
 
 
