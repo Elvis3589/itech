@@ -33,7 +33,7 @@
             <input type="email" id="correo" name="correo" value="<%= usuario.getEmail()%>" required readonly>
 
             <label for="imagen">Subir imagen:</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*">
+            <input type="file" id="imagen" name="imagen" accept="image/*" required>
 
             <input type="submit" value="Guardar Cambios">
 
