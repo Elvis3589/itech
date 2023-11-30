@@ -1,7 +1,7 @@
 package com.example.entidades;
 
 public class DetallesTienda {
-    private String id_detalles_tienda;
+    private Integer id_detalles_tienda;
     private String producto;
     private String categoria;
     private String tipo_venta;
@@ -9,17 +9,19 @@ public class DetallesTienda {
     private String estado;
     private String contacto;
     private Integer cantidad;
-    private String id_tienda;
-    private String id_usuario;
+    private Integer id_tienda;
+    private Integer id_usuario;
+    private Tienda tienda;
+    private Usuario usuario;
 
     public DetallesTienda() {
     }
 
-    public String getId_detalles_tienda() {
+    public Integer getId_detalles_tienda() {
         return id_detalles_tienda;
     }
 
-    public void setId_detalles_tienda(String id_detalles_tienda) {
+    public void setId_detalles_tienda(Integer id_detalles_tienda) {
         this.id_detalles_tienda = id_detalles_tienda;
     }
 
@@ -79,21 +81,37 @@ public class DetallesTienda {
         this.cantidad = cantidad;
     }
 
-    public String getId_tienda() {
+    public Integer getId_tienda() {
         return id_tienda;
     }
 
-    public void setId_tienda(String id_tienda) {
+    public void setId_tienda(Integer id_tienda) {
         this.id_tienda = id_tienda;
     }
 
-    public String getId_usuario() {
+    public Integer getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(Integer id_usuario) {
         this.id_usuario = id_usuario;
     }
-    
 
+    public Tienda getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(Tienda tienda) {
+        this.tienda = tienda;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 }

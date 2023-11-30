@@ -4,6 +4,22 @@
         <servlet-name>PremiumServlet</servlet-name>
         <servlet-class>com.example.web.servlet.PremiumServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PublicacionServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.PublicacionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prueba</servlet-name>
+        <servlet-class>com.example.test.prueba</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TiendaServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.TiendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetallesTiendaServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.DetallesTiendaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EventoServlet</servlet-name>
         <url-pattern>/EventoServlet</url-pattern>
@@ -11,6 +27,22 @@
     <servlet-mapping>
         <servlet-name>PremiumServlet</servlet-name>
         <url-pattern>/PremiumServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublicacionServlet</servlet-name>
+        <url-pattern>/Publicacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prueba</servlet-name>
+        <url-pattern>/prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TiendaServlet</servlet-name>
+        <url-pattern>/Tienda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetallesTiendaServlet</servlet-name>
+        <url-pattern>/Detalles</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,20 +3,30 @@ package com.example.entidades;
 import java.sql.Date;
 
 public class Publicacion {
-    private String id_publicacion;
+    private Integer id_publicacion;
     private String descripcion;
     private String contenido;
-    private Date fecha;
-    private String id_usuario;
+    private String fecha;
+    private Integer id_usuario;
+    private Usuario usuario;
 
     public Publicacion() {
     }
 
-    public String getId_publicacion() {
+    public Publicacion(Integer id_publicacion, String descripcion, String contenido, String fecha, Integer id_usuario, Usuario usuario) {
+        this.id_publicacion = id_publicacion;
+        this.descripcion = descripcion;
+        this.contenido = contenido;
+        this.fecha = fecha;
+        this.id_usuario = id_usuario;
+        this.usuario = usuario;
+    }
+
+    public Integer getId_publicacion() {
         return id_publicacion;
     }
 
-    public void setId_publicacion(String id_publicacion) {
+    public void setId_publicacion(Integer id_publicacion) {
         this.id_publicacion = id_publicacion;
     }
 
@@ -36,21 +46,28 @@ public class Publicacion {
         this.contenido = contenido;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public String getId_usuario() {
+    public Integer getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(Integer id_usuario) {
         this.id_usuario = id_usuario;
     }
-    
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }

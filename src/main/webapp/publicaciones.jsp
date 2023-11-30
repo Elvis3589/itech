@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.Base64"%>
 <%@page import="com.example.entidades.Usuario"%>
+<%@page import="com.example.entidades.Publicacion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -39,7 +41,7 @@
                         Correo de Usuario
                         <% }%>
                     </p>
-                    
+
                     <p class="card-text" style="text-align: center; margin-bottom: 40px;">
                         <% if (usuario != null) {%>
                         <%= "Rol:" + usuario.getRol()%>
@@ -67,71 +69,75 @@
             <div class="modal" id="exampleModal">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title">Escribe tu Publicación</h1>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <form action="publicacionServ" method="POST" enctype="multipart/form-data">
-                                    <input type="text" name="texto_usuario" style="display: none;">
+                        <form action="Publicacion" method="POST" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h1 class="modal-title">Escribe tu Publicación</h1>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-9">
-                                            <textarea class="form-control" id="texto" name="texto_descripcion" rows="4" placeholder="Escribe aquí" required=""></textarea>
+                                            <textarea class="form-control" id="texto" name="texto_descripcion" rows="4" placeholder="Escribe aquí"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="col-3 col-form-label">Selecciona una imagen</label>
                                         <div class="col-9">
-                                            <input type="file" class="form-control" id="imagen" name="archivo_imagen" required="">
+                                            <input type="file" class="form-control" id="imagen" name="archivo_imagen">
                                         </div>
+                                        <input type="hidden" name="id_usuario" value="${id_usuario}">
+                                        <input type="hidden" name="accion" value="INS">
                                     </div>
-
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Publicar</button>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Publicar</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="close-modal">Cerrar</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="close-modal">Cerrar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="publications">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Roberth García</h5>
-                    <hr/>
-                    <p class="card-text">¡Hola a todos! Quiero compartir mi nueva estrategia para aprender matemáticas que me está funcionando muy bien. Estoy utilizando una aplicación de resolución de problemas de matemáticas que hace que el proceso sea mucho más interactivo y divertido. También estoy tomando apuntes con colores y estoy viendo videos explicativos en YouTube. ¿Alguna otra sugerencia para mejorar mis habilidades matemáticas? ¡Gracias de antemano! </p>
-                    <p class="card-text"><small class="text-body-secondary">10-11-2023</small></p>
-                </div>
+        </div>       
+        <c:forEach var="publicacion" items="${publicaciones}">
+            <div class="publications">       
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${publicacion.getUsuario().getNombre()} ${publicacion.getUsuario().getApellidos()}</h5>
+                        <hr/>
+                        <p class="card-text">${publicacion.getDescripcion()}</p>
+                        <p class="card-text"><small class="text-body-secondary">${publicacion.getFecha()}</small></p>
+                    </div>
+                    <c:if test="${not empty publicacion.getContenido()}">
+                        <img src="${publicacion.getContenido()}" class="card-img-bottom" alt="Contenido de la publicación">
+                    </c:if>
 
-                <img src="img/pub/matematica.jpg" class="card-img-bottom" alt="Contenido de la publicación">
-
-                <div class="card-body">
-                    <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
-                    <hr/>
-                    <form action="#" method="POST">
-                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
-                        <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
-                    </form>
-                    <div class="comment-container">
-                        <div class="comment">
-                            <div class "comment-header">
-                                <h6 class="comment-username">Carlos Rodriguez</h6>
-                            </div>
-                            <div class "comment-body">
-                                <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
+                    <div class="card-body">
+                        <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
+                        <hr/>
+                        <form action="Comentarios" method="POST">
+                            <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
+                            <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
+                        </form>
+                        <div class="comment-container">
+                            <div class="comment">
+                                <div class "comment-header">
+                                    <h6 class="comment-username">Carlos Rodriguez</h6>
+                                </div>
+                                <div class "comment-body">
+                                    <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>           
             </div>
-        </div>
+        </c:forEach>
+
         <script>
             const writeButton = document.getElementById('write-button');
             const modal = document.getElementById('exampleModal');

@@ -115,6 +115,7 @@ public class UsuarioServlet extends HttpServlet {
                     request.getSession().setAttribute("usuario", usuario);
                     request.getSession().setAttribute("nombreUsuario", usuario.getNombre());
                     request.getSession().setAttribute("rol", usuario.getRol());
+                    request.getSession().setAttribute("id_usuario", usuario.getIdUsuario());
 
                     boolean esAdmin = "admin".equals(usuario.getRol());
                     request.getSession().setAttribute("esAdmin", esAdmin);

@@ -38,7 +38,7 @@
     <body>
         <header class="navbar">
             <div class="navbar-left">
-                <a href="#"><img src="img/logo.png" alt="Logo de Mi Sitio Web"></a>
+                <a href="index.jsp"><img src="img/logo.png" alt="Logo de Mi Sitio Web"></a>
             </div>
             <div class="navbar-right">
                 <div class="menu-icon">
@@ -48,13 +48,13 @@
                 </div>
                 <ul>
                     <li><a class="nav-link" href="index.jsp">Inicio</a></li>
-                    <li><a class="nav-link" href="publicaciones.jsp">Publicaciones</a></li>
-                    <li><a class="nav-link" href="tienda.jsp">Tienda</a></li>
+                    <li><a class="nav-link" href="Publicacion?accion=SEL">Publicaciones</a></li>
+                    <li><a class="nav-link" href="Tienda?accion=SEL">Tienda</a></li>
                     <li class="dropdown">
                         <a class="nav-link" href="#">${nombreUsuario} &#9660;</a>
                         <div class="dropdown-content">
                             <a href="perfil.jsp">Perfil</a>
-                            <a href="mispublicaciones.jsp">Mis publicaciones</a>
+                            <a href="Publicacion?accion=SEL&id=${id_usuario}">Mis publicaciones</a>
                             <c:if test="${sessionScope.esAdmin}">
                                 <a href="administrar.jsp">Administrar</a>
                             </c:if>
