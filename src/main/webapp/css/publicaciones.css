@@ -91,9 +91,9 @@ body {
 }
 
 .publications {
-    width: 70%;
+    width: 69.67%;
     padding: 20px;
-    float: left;
+    float: right;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;

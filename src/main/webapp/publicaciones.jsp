@@ -102,9 +102,10 @@
                     </div>
                 </div>
             </div>
-        </div>       
+        </div>         
+
         <c:forEach var="publicacion" items="${publicaciones}">
-            <div class="publications">       
+            <div class="publications">   
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">${publicacion.getUsuario().getNombre()} ${publicacion.getUsuario().getApellidos()}</h5>
@@ -125,10 +126,10 @@
                         </form>
                         <div class="comment-container">
                             <div class="comment">
-                                <div class "comment-header">
+                                <div class="comment-header">
                                     <h6 class="comment-username">Carlos Rodriguez</h6>
                                 </div>
-                                <div class "comment-body">
+                                <div class = "comment-body">
                                     <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
                                 </div>
                             </div>
@@ -137,6 +138,8 @@
                 </div>           
             </div>
         </c:forEach>
+
+
 
         <script>
             const writeButton = document.getElementById('write-button');
