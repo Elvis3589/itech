@@ -98,35 +98,34 @@ public class DaoPublicacionImpl implements DaoPublicacion {
         return lista;
     }
 
-@Override
-public String publicacionIns(Publicacion publicacion) {
-    StringBuilder sql = new StringBuilder();
-    sql.append("INSERT INTO publicacion (")
-            .append("descripcion,")
-            .append("contenido,")
-            .append("fecha,")
-            .append("id_usuario")
-            .append(") VALUES (?,?,?,?)");
-    try (Connection c = bd.Conectar()) {
-        PreparedStatement ps = c.prepareStatement(sql.toString());
-        ps.setString(1, publicacion.getDescripcion());
-        ps.setBytes(2, publicacion.getContenido());
-        ps.setString(3, publicacion.getFecha());
-        ps.setInt(4, publicacion.getId_usuario());
-        int cont = ps.executeUpdate();
-        if (cont == 0) {
-            mensaje = "0 filas insertadas";
-        } else {
-            mensaje = "Inserción exitosa";
+    @Override
+    public String publicacionIns(Publicacion publicacion) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO publicacion (")
+                .append("descripcion,")
+                .append("contenido,")
+                .append("fecha,")
+                .append("id_usuario")
+                .append(") VALUES (?,?,?,?)");
+        try (Connection c = bd.Conectar()) {
+            PreparedStatement ps = c.prepareStatement(sql.toString());
+            ps.setString(1, publicacion.getDescripcion());
+            ps.setBytes(2, publicacion.getContenido());
+            ps.setString(3, publicacion.getFecha());
+            ps.setInt(4, publicacion.getId_usuario());
+            int cont = ps.executeUpdate();
+            if (cont == 0) {
+                mensaje = "0 filas insertadas";
+            } else {
+                mensaje = "Inserción exitosa";
+            }
+        } catch (SQLException e) {
+            mensaje = e.getMessage();
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        mensaje = e.getMessage();
-        e.printStackTrace(); 
+
+        return mensaje;
     }
-
-    return mensaje;
-}
-
 
     @Override
     public String publicacionUpd(Publicacion publicacion, boolean actualizarImagen) {

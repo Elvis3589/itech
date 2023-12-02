@@ -24,26 +24,32 @@
                     <c:if test="${not empty publicacion.getContenidoBase64()}">
                         <img src="data:image/jpeg;base64,${publicacion.getContenidoBase64()}" class="card-img-bottom" alt="Contenido de la publicación">
                     </c:if>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
+                    <hr/>
+                    <form action="ComentarioServlet?accion=REGISTRAR_COMENTARIO2" method="POST">
+                        <input type="hidden" name="id_usuario" value="${id_usuario}">
+                        <input type="hidden" name="id_publicacion" value="${publicacion.getId_publicacion()}">
+                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
+                        <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
+                    </form>
 
-                    <div class="card-body">
-                        <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
-                        <hr/>
-                        <form action="#" method="POST">
-                            <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
-                            <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
-                        </form>
-                        <div class="comment-container">
+                    <div class="comment-container">
+                        <c:set var="comentarios" value="${daoComentarios.obtenerComentariosPorPublicacion(publicacion.id_publicacion)}" />
+                        <c:forEach var="comentario" items="${comentarios}">
                             <div class="comment">
-                                <div class "comment-header">
-                                    <h6 class="comment-username">Juan Revoredo</h6>
+                                <div class="comment-header">
+                                    <h6 class="comment-username">${comentario.usuario.nombre} ${comentario.usuario.apellidos}</h6>
                                 </div>
-                                <div class "comment-body">
-                                    <p class="comment-text">¡Hola! Estoy totalmente de acuerdo contigo. La universidad es un lugar increíble para explorar nuevas ideas y perspectivas. También estoy en mi último año y, al igual que tú, he tenido algunas experiencias académicas asombrosas. Mi curso de [nombre del curso] también ha sido un punto culminante para mí. Las discusiones en clase y las investigaciones me han desafiado de maneras que nunca imaginé. ¡Es genial poder aprender y crecer juntos en este viaje académico!</p>
+                                <div class="comment-body">
+                                    <p class="comment-text">${comentario.contenido}</p>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
                     </div>
-                </div>
+
+                </div>          
             </div>
         </c:forEach>
     </body>

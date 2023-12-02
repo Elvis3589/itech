@@ -122,20 +122,27 @@
                 <div class="card-body">
                     <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
                     <hr/>
-                    <form action="ComentariosServlet" method="POST">
+                    <form action="ComentarioServlet?accion=REGISTRAR_COMENTARIO" method="POST">
+                        <input type="hidden" name="id_usuario" value="${id_usuario}">
+                        <input type="hidden" name="id_publicacion" value="${publicacion.getId_publicacion()}">
                         <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
                         <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
                     </form>
+
                     <div class="comment-container">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <h6 class="comment-username">Carlos Rodriguez</h6>
+                        <c:set var="comentarios" value="${daoComentarios.obtenerComentariosPorPublicacion(publicacion.id_publicacion)}" />
+                        <c:forEach var="comentario" items="${comentarios}">
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <h6 class="comment-username">${comentario.usuario.nombre} ${comentario.usuario.apellidos}</h6>
+                                </div>
+                                <div class="comment-body">
+                                    <p class="comment-text">${comentario.contenido}</p>
+                                </div>
                             </div>
-                            <div class = "comment-body">
-                                <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
+
                 </div>          
             </div>
         </c:forEach>

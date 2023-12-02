@@ -4,7 +4,9 @@
  */
 package com.example.web.servlet;
 
+import com.example.dao.DaoComentarios;
 import com.example.dao.DaoPublicacion;
+import com.example.dao.impl.DaoComentariosImpl;
 import com.example.dao.impl.DaoPublicacionImpl;
 import com.example.entidades.Publicacion;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -107,6 +109,7 @@ public class PublicacionServlet extends HttpServlet {
         request.getRequestDispatcher(target).forward(request, response);
 
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -116,6 +119,9 @@ public class PublicacionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DaoComentarios daoComentarios = new DaoComentariosImpl();
+        request.setAttribute("daoComentarios", daoComentarios);
         processRequest(request, response);
+
     }
 }

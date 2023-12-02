@@ -24,6 +24,10 @@
         <servlet-name>ContactoServlet</servlet-name>
         <servlet-class>com.example.web.servlet.ContactoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.ComentarioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EventoServlet</servlet-name>
         <url-pattern>/EventoServlet</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>ContactoServlet</servlet-name>
         <url-pattern>/ContactoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <url-pattern>/ComentarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

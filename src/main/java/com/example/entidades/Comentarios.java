@@ -6,15 +6,17 @@ public class Comentarios {
     private String contenido;
     private int id_usuario;
     private int id_publicacion;
+    private Usuario usuario; 
 
     public Comentarios() {
     }
 
-    public Comentarios(int id_comentario, String contenido, int id_usuario, int id_publicacion) {
+    public Comentarios(int id_comentario, String contenido, int id_usuario, int id_publicacion, Usuario usuario) {
         this.id_comentario = id_comentario;
         this.contenido = contenido;
         this.id_usuario = id_usuario;
         this.id_publicacion = id_publicacion;
+        this.usuario = usuario;
     }
 
     public int getId_comentario() {
@@ -49,4 +51,11 @@ public class Comentarios {
         this.id_publicacion = id_publicacion;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
