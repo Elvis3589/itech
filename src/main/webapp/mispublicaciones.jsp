@@ -21,8 +21,8 @@
                         <p class="card-text"><small class="text-body-secondary">${publicacion.getFecha()}</small></p>
                     </div>
 
-                    <c:if test="${not empty publicacion.getContenido()}">
-                        <img src="${publicacion.getContenido()}" class="card-img-bottom" alt="Contenido de la publicación">
+                    <c:if test="${not empty publicacion.getContenidoBase64()}">
+                        <img src="data:image/jpeg;base64,${publicacion.getContenidoBase64()}" class="card-img-bottom" alt="Contenido de la publicación">
                     </c:if>
 
                     <div class="card-body">

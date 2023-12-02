@@ -61,7 +61,7 @@
                 <button type="button" onclick="mostrarModal()" class="publicar-button">Publicar</button>
             </div>
             <div id="myModal" class="modal">
-                <form action="Tienda" method="POST" enctype="multipart/form-data">
+                <form action="Tienda?accion=REGISTRAR_TIENDA" method="POST" enctype="multipart/form-data">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -138,7 +138,7 @@
                     <div class="curso">
                         <div class="producto">
                             <div class="producto-imagen">
-                                <img src="${producto.getImagen()}" alt="Producto 6" />
+                                <img src="data:image/jpeg;base64,${producto.getImagenBase64()}" alt="Producto 6" />
                             </div>
                             <div class="producto-info">
                                 <h2>${producto.getTitulo()}</h2>

@@ -10,16 +10,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
-public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
+public class DaoDetallesTiendaImpl implements DaoDetallesTienda {
+
     private Conexion bd;
     private String mensaje;
 
     public DaoDetallesTiendaImpl() {
         bd = new Conexion();
     }
-    
+
     @Override
     public List<DetallesTienda> detallesGet(int id_tienda) {
         StringBuilder sql = new StringBuilder();
@@ -27,7 +29,7 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
         Tienda tie = new Tienda();
         Usuario us = new Usuario();
         List<DetallesTienda> lista = new ArrayList<>();
-        
+
         sql.append("SELECT ")
                 .append("dt.id_detalles_tienda,")
                 .append("dt.producto,")
@@ -48,7 +50,7 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
                 .append(" INNER JOIN usuarios u")
                 .append(" ON dt.id_tienda = t.id_tienda AND dt.id_usuario = u.id_usuario")
                 .append(" WHERE t.id_tienda = ?");
-        
+
         try (Connection c = bd.Conectar()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setInt(1, id_tienda);
@@ -64,16 +66,16 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
                     dt.setCantidad(rs.getInt(8));
                     dt.setId_tienda(rs.getInt(9));
                     dt.setId_usuario(rs.getInt(10));
-                    
+
                     tie.setPrecio(rs.getFloat(11));
-                    tie.setImagen(rs.getString(12));
+                    tie.setImagenBase64(Base64.getEncoder().encodeToString(rs.getBytes(12))); // Convierte a Base64
                     dt.setTienda(tie);
-                    
+
                     us.setNombre(rs.getString(13));
                     us.setApellidos(rs.getString(14));
                     dt.setUsuario(us);
                     lista.add(dt);
-                } 
+                }
             } catch (SQLException e) {
                 mensaje = e.getMessage();
             }
@@ -98,7 +100,7 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
                 .append("id_tienda,")
                 .append("id_usuario")
                 .append(") VALUES (?,?,?,?,?,?,?,?,?)");
-        try(Connection c = bd.Conectar()) {
+        try (Connection c = bd.Conectar()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setString(1, detalles.getProducto());
             ps.setString(2, detalles.getCategoria());
@@ -110,13 +112,13 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda{
             ps.setInt(8, detalles.getId_tienda());
             ps.setInt(9, detalles.getId_usuario());
             int cont = ps.executeUpdate();
-            if(cont == 0){
+            if (cont == 0) {
                 mensaje = "0 filas insertadas";
             }
         } catch (SQLException e) {
             mensaje = e.getMessage();
         }
-             
+
         return mensaje;
     }
 

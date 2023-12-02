@@ -48,7 +48,7 @@ public class PremiumServlet extends HttpServlet {
                 premium.setFechaFin(fechaFin);
 
                 if (daoPremium.registrarSuscripcionPremium(premium)) {
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
                 } else {
                     request.setAttribute("mensajeError", "Error al obtener la suscripción premium: " + daoPremium.getMensaje());
                     request.getRequestDispatcher("premium.jsp").forward(request, response);

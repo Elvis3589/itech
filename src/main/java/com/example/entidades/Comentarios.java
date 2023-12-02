@@ -1,20 +1,28 @@
 package com.example.entidades;
 
 public class Comentarios {
-    private String id_comentarios;
+
+    private int id_comentario;
     private String contenido;
-    private String id_usuario;
-    private String id_publicacion;
+    private int id_usuario;
+    private int id_publicacion;
 
     public Comentarios() {
     }
 
-    public String getId_comentarios() {
-        return id_comentarios;
+    public Comentarios(int id_comentario, String contenido, int id_usuario, int id_publicacion) {
+        this.id_comentario = id_comentario;
+        this.contenido = contenido;
+        this.id_usuario = id_usuario;
+        this.id_publicacion = id_publicacion;
     }
 
-    public void setId_comentarios(String id_comentarios) {
-        this.id_comentarios = id_comentarios;
+    public int getId_comentario() {
+        return id_comentario;
+    }
+
+    public void setId_comentario(int id_comentario) {
+        this.id_comentario = id_comentario;
     }
 
     public String getContenido() {
@@ -25,21 +33,20 @@ public class Comentarios {
         this.contenido = contenido;
     }
 
-    public String getId_usuario() {
+    public int getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public String getId_publicacion() {
+    public int getId_publicacion() {
         return id_publicacion;
     }
 
-    public void setId_publicacion(String id_publicacion) {
+    public void setId_publicacion(int id_publicacion) {
         this.id_publicacion = id_publicacion;
     }
-    
 
 }

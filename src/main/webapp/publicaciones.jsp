@@ -3,6 +3,7 @@
 <%@page import="com.example.entidades.Usuario"%>
 <%@page import="com.example.entidades.Publicacion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -113,29 +114,29 @@
                         <p class="card-text">${publicacion.getDescripcion()}</p>
                         <p class="card-text"><small class="text-body-secondary">${publicacion.getFecha()}</small></p>
                     </div>
-                    <c:if test="${not empty publicacion.getContenido()}">
-                        <img src="${publicacion.getContenido()}" class="card-img-bottom" alt="Contenido de la publicación">
+                    <c:if test="${not empty publicacion.getContenidoBase64()}">
+                        <img src="data:image/jpeg;base64,${publicacion.getContenidoBase64()}" class="card-img-bottom" alt="Contenido de la publicación">
                     </c:if>
+                </div> 
 
-                    <div class="card-body">
-                        <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
-                        <hr/>
-                        <form action="Comentarios" method="POST">
-                            <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
-                            <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
-                        </form>
-                        <div class="comment-container">
-                            <div class="comment">
-                                <div class="comment-header">
-                                    <h6 class="comment-username">Carlos Rodriguez</h6>
-                                </div>
-                                <div class = "comment-body">
-                                    <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
-                                </div>
+                <div class="card-body">
+                    <h6 class="card-text" style=" font-size: 1.2rem;margin-bottom: 5px;">Comentarios</h6>
+                    <hr/>
+                    <form action="ComentariosServlet" method="POST">
+                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
+                        <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
+                    </form>
+                    <div class="comment-container">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <h6 class="comment-username">Carlos Rodriguez</h6>
+                            </div>
+                            <div class = "comment-body">
+                                <p class="comment-text">¡Eso suena genial! Yo también soy un amante de las matemáticas, y me encanta experimentar con diferentes métodos de estudio. Te recomendaría que intentes trabajar en problemas prácticos y desafiantes para poner a prueba tus habilidades. También, unirte a un grupo de estudio o un club de matemáticas puede ser una excelente manera de colaborar con otros estudiantes apasionados por la materia. ¡Sigue así, estás en el camino correcto para dominar las matemáticas!</p>
                             </div>
                         </div>
                     </div>
-                </div>           
+                </div>          
             </div>
         </c:forEach>
 

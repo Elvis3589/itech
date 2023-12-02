@@ -16,7 +16,8 @@
             <c:forEach var="detalle" items="${detalles}">
                 <div class="product-details">
                     <div class="product-image">
-                        <img src="${detalle.getTienda().getImagen()}" alt="Imagen del Producto">
+                        <img src="data:image/jpeg;base64,${detalle.getTienda().getImagenBase64()}" alt="Imagen del Producto"/>
+
                     </div>
 
                     <div class="product-info">

@@ -91,14 +91,14 @@ public class UsuarioServlet extends HttpServlet {
                 if (daoUsuario.actualizarImagenUsuario(idUsuario, imagenBytes)) {
                     usuario.setImagen(imagenBytes);
                     request.getSession().setAttribute("usuario", usuario);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
                     return;
                 } else {
                     request.setAttribute("mensajeError", "Error al actualizar la imagen: " + daoUsuario.getMensaje());
                     target = "perfil.jsp";
                 }
             } else {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
                 return;
             }
         } else if (accion.equals("ACCEDER")) {
@@ -119,7 +119,7 @@ public class UsuarioServlet extends HttpServlet {
 
                     boolean esAdmin = "admin".equals(usuario.getRol());
                     request.getSession().setAttribute("esAdmin", esAdmin);
-                    target = "index.jsp";
+                    target = "EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES";
                 } else {
                     request.setAttribute("mensajeError", "Contraseña incorrecta");
                 }

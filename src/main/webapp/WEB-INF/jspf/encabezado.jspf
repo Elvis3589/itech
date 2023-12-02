@@ -47,7 +47,7 @@
                     <div class="bar"></div>
                 </div>
                 <ul>
-                    <li><a class="nav-link" href="index.jsp">Inicio</a></li>
+                    <li><a class="nav-link" href="EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES">Inicio</a></li>
                     <li><a class="nav-link" href="Publicacion?accion=SEL">Publicaciones</a></li>
                     <li><a class="nav-link" href="Tienda?accion=SEL">Tienda</a></li>
                     <li class="dropdown">

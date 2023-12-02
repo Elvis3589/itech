@@ -1,23 +1,29 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package com.example.web.servlet;
 
 import com.example.dao.DaoPublicacion;
 import com.example.dao.impl.DaoPublicacionImpl;
 import com.example.entidades.Publicacion;
-import java.io.IOException;
-import java.util.List;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,17 +36,13 @@ public class PublicacionServlet extends HttpServlet {
     Publicacion pub = new Publicacion();
     DaoPublicacion dao = new DaoPublicacionImpl();
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
         String id_usuario = request.getParameter("id");
         String mensaje = null;
+        request.setCharacterEncoding("UTF-8");
 
         switch (accion) {
             case "SEL":
@@ -78,52 +80,29 @@ public class PublicacionServlet extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
         String mensaje = null;
+        request.setCharacterEncoding("UTF-8");
 
         switch (accion) {
             case "INS":
-                //Captura datos de formulario
-                pub.setDescripcion(request.getParameter("texto_descripcion"));
+                pub.setDescripcion(new String(request.getParameter("texto_descripcion").getBytes("ISO-8859-1"), "UTF-8"));
                 Part filepart = request.getPart("archivo_imagen");
                 pub.setId_usuario(Integer.valueOf(request.getParameter("id_usuario")));
-                String imagen = null;
-                //Captura fecha local
                 LocalDate fechaLocal = LocalDate.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 String fecha = fechaLocal.format(formatter);
                 pub.setFecha(fecha);
 
-                // Procesar imagen o multimedia
+                byte[] imagenBytes = null;
                 if (filepart != null && filepart.getSize() > 0) {
-                    try {
-                        String fileName = Paths.get(filepart.getSubmittedFileName()).getFileName().toString();
-                        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-                        String uniqueFileName = UUID.randomUUID().toString() + "." + fileExtension;
-
-                        // Especifica la ruta completa donde deseas guardar las imágenes
-                        String uploadPath = getServletContext().getRealPath("/") + "uploads";
-
-                        File uploadDir = new File(uploadPath);
-                        if (!uploadDir.exists()) {
-                            uploadDir.mkdir();
-                        }
-
-                        imagen = "uploads" + File.separator + uniqueFileName; // Guardar dirección en variable imagen
-                        // Guardar la imagen en la carpeta uploads
-                        String filePath = uploadPath + File.separator + uniqueFileName;
-                        try (InputStream input = filepart.getInputStream(); OutputStream output = new FileOutputStream(filePath)) {
-                            int bytesRead;
-                            byte[] buffer = new byte[4096];
-                            while ((bytesRead = input.read(buffer)) != -1) {
-                                output.write(buffer, 0, bytesRead);
-                            }
-                        }
+                    try (InputStream input = filepart.getInputStream()) {
+                        imagenBytes = input.readAllBytes();
                     } catch (IOException e) {
-                        System.out.println("Error publicacionServ" + e);
+                        System.out.println("Error al procesar la imagen: " + e);
                     }
                 }
 
-                pub.setContenido(imagen);
+                pub.setContenido(imagenBytes);
+
                 List<Publicacion> lista = null;
 
                 dao.publicacionIns(pub);
@@ -143,6 +122,5 @@ public class PublicacionServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

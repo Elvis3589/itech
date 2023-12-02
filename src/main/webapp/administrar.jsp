@@ -23,7 +23,7 @@
 
         <h1>Administrar Usuarios</h1>
 
-        <a href="index.jsp" class="volver-btn">Volver a Inicio</a>
+        <a href="EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES" class="volver-btn">Volver a Inicio</a>
 
         <table border="1">
             <tr>

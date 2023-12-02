@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class DaoPublicacionImpl implements DaoPublicacion {
@@ -29,12 +30,12 @@ public class DaoPublicacionImpl implements DaoPublicacion {
 
         try (Connection c = bd.Conectar()) {
             PreparedStatement ps = c.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();        
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Publicacion pub = new Publicacion();
                 pub.setId_publicacion(rs.getInt(1));
                 pub.setDescripcion(rs.getString(2));
-                pub.setContenido(rs.getString(3));
+                pub.setContenidoBase64(Base64.getEncoder().encodeToString(rs.getBytes(3)));
                 pub.setFecha(rs.getString(4));
                 pub.setId_usuario(rs.getInt(5));
 
@@ -75,14 +76,15 @@ public class DaoPublicacionImpl implements DaoPublicacion {
                     Publicacion pub = new Publicacion();
                     pub.setId_publicacion(rs.getInt(1));
                     pub.setDescripcion(rs.getString(2));
-                    pub.setContenido(rs.getString(3));
+                    pub.setContenido(rs.getBytes(3));
+
                     pub.setFecha(rs.getString(4));
                     pub.setId_usuario(rs.getInt(5));
-                    
+
                     Usuario us = new Usuario();
                     us.setNombre(rs.getString(6));
                     us.setApellidos(rs.getString(7));
-                    
+
                     pub.setUsuario(us);
                     lista.add(pub);
                 }
@@ -96,31 +98,35 @@ public class DaoPublicacionImpl implements DaoPublicacion {
         return lista;
     }
 
-    @Override
-    public String publicacionIns(Publicacion publicacion) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO publicacion (")
-                .append("descripcion,")
-                .append("contenido,")
-                .append("fecha,")
-                .append("id_usuario")
-                .append(") VALUES (?,?,?,?)");
-        try (Connection c = bd.Conectar()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ps.setString(1, publicacion.getDescripcion());
-            ps.setString(2, publicacion.getContenido());
-            ps.setString(3, publicacion.getFecha());
-            ps.setInt(4, publicacion.getId_usuario());
-            int cont = ps.executeUpdate();
-            if (cont == 0) {
-                mensaje = "0 filas insertadas";
-            }
-        } catch (SQLException e) {
-            mensaje = e.getMessage();
+@Override
+public String publicacionIns(Publicacion publicacion) {
+    StringBuilder sql = new StringBuilder();
+    sql.append("INSERT INTO publicacion (")
+            .append("descripcion,")
+            .append("contenido,")
+            .append("fecha,")
+            .append("id_usuario")
+            .append(") VALUES (?,?,?,?)");
+    try (Connection c = bd.Conectar()) {
+        PreparedStatement ps = c.prepareStatement(sql.toString());
+        ps.setString(1, publicacion.getDescripcion());
+        ps.setBytes(2, publicacion.getContenido());
+        ps.setString(3, publicacion.getFecha());
+        ps.setInt(4, publicacion.getId_usuario());
+        int cont = ps.executeUpdate();
+        if (cont == 0) {
+            mensaje = "0 filas insertadas";
+        } else {
+            mensaje = "Inserción exitosa";
         }
-
-        return mensaje;
+    } catch (SQLException e) {
+        mensaje = e.getMessage();
+        e.printStackTrace(); 
     }
+
+    return mensaje;
+}
+
 
     @Override
     public String publicacionUpd(Publicacion publicacion, boolean actualizarImagen) {
@@ -142,7 +148,7 @@ public class DaoPublicacionImpl implements DaoPublicacion {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             if (actualizarImagen) {
                 ps.setString(1, publicacion.getDescripcion());
-                ps.setString(2, publicacion.getContenido());
+                ps.setBytes(2, publicacion.getContenido());
                 ps.setString(3, publicacion.getFecha());
                 ps.setInt(4, publicacion.getId_publicacion());
             } else {

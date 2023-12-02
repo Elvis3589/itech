@@ -10,5 +10,7 @@ public interface DaoTienda {
     String tiendaUpd(Tienda tienda);
     String tiendaDel(String id);
     String getMessage();
+    List<Tienda> obtenerMaterialesDestacadosPremium();
+
 
 }

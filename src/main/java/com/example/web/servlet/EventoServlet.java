@@ -2,9 +2,12 @@ package com.example.web.servlet;
 
 import com.example.dao.DaoEvento;
 import com.example.dao.DaoPremium;
+import com.example.dao.DaoTienda;
 import com.example.dao.impl.DaoEventoImpl;
 import com.example.dao.impl.DaoPremiumImpl;
+import com.example.dao.impl.DaoTiendaImpl;
 import com.example.entidades.Eventos;
+import com.example.entidades.Tienda;
 import com.example.entidades.Usuario;
 
 import jakarta.servlet.ServletException;
@@ -26,6 +29,7 @@ public class EventoServlet extends HttpServlet {
 
     private final DaoEvento daoEvento = new DaoEventoImpl();
     private final DaoPremium daoPremium = new DaoPremiumImpl();
+    private final DaoTienda daoTienda = new DaoTiendaImpl();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -96,7 +100,7 @@ public class EventoServlet extends HttpServlet {
                 );
 
                 if (daoEvento.registrarEvento(nuevoEvento)) {
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
                     return;
                 } else {
                     request.setAttribute("mensajeError", "Error al registrar el evento");
@@ -109,11 +113,14 @@ public class EventoServlet extends HttpServlet {
             request.setAttribute("eventos", eventos);
             target = "reservaevento.jsp";
 
-        } else if (accion.equals("MOSTRAR_EVENTOS_PREMIUM")) {
+        } else if (accion.equals("MOSTRAR_DATOS_PRINCIPALES")) {
             List<Eventos> eventosP = daoEvento.obtenerEventosPremium();
-            request.setAttribute("eventosP", eventosP);
-            target = "index.jsp";
+            List<Tienda> materialesDestacados = daoTienda.obtenerMaterialesDestacadosPremium();
 
+            request.setAttribute("eventosP", eventosP);
+            request.setAttribute("materialesDestacados", materialesDestacados);
+
+            target = "index.jsp";
         } else if (accion.equals("MOSTRAR_EVENTOS_ACTIVOS")) {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
