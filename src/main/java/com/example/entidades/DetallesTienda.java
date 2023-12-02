@@ -8,7 +8,6 @@ public class DetallesTienda {
     private String descripcion;
     private String estado;
     private String contacto;
-    private Integer cantidad;
     private Integer id_tienda;
     private Integer id_usuario;
     private Tienda tienda;
@@ -71,14 +70,6 @@ public class DetallesTienda {
 
     public void setContacto(String contacto) {
         this.contacto = contacto;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
     }
 
     public Integer getId_tienda() {

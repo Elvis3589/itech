@@ -96,10 +96,7 @@
                                     <label class="form-label">Subir imagen</label>
                                     <input name="archivo_imagen" type="file" id="imagen">
                                 </div>
-                                <div>
-                                    <label for="cantidad" class="form-label">Cantidad</label>
-                                    <input type="number" name="texto_cantidad" id="cantidad" min="1" max="10">
-                                </div>
+
                                 <div>
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea name="texto_descripcion" id="descripcion" rows="3"></textarea>

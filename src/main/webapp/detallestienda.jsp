@@ -42,11 +42,6 @@
                         </div>
 
                         <div class="product-info-item">
-                            <label>Cantidad:</label>
-                            <p>${detalle.getCantidad()}</p>
-                        </div>
-
-                        <div class="product-info-item">
                             <label>Descripción:</label>
                             <p>${detalle.getDescripcion()}</p>
                         </div>

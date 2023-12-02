@@ -63,7 +63,6 @@ public class TiendaServlet extends HttpServlet {
             dt.setTipo_venta(request.getParameter("texto_tipo"));
             dt.setCategoria(request.getParameter("texto_categoria"));
             Part filepart = request.getPart("archivo_imagen");
-            dt.setCantidad(Integer.valueOf(request.getParameter("texto_cantidad")));
             dt.setDescripcion(request.getParameter("texto_descripcion"));
             tie.setPrecio(Float.valueOf(request.getParameter("texto_precio")));
             dt.setEstado(request.getParameter("texto_estado"));

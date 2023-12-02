@@ -100,14 +100,12 @@ public class PublicacionServlet extends HttpServlet {
 
             dao.publicacionIns(pub);
             lista = dao.publicacionSel();
+            response.sendRedirect("Publicacion?accion=SEL");
 
             request.setAttribute("mensaje", mensaje);
             request.setAttribute("publicaciones", lista);
-            request.getRequestDispatcher("publicaciones.jsp").forward(request, response);
 
         }
-        request.getRequestDispatcher(target).forward(request, response);
-
     }
 
     @Override

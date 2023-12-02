@@ -38,7 +38,6 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda {
                 .append("dt.descripcion,")
                 .append("dt.estado,")
                 .append("dt.contacto,")
-                .append("dt.cantidad,")
                 .append("dt.id_tienda,")
                 .append("dt.id_usuario,")
                 .append("t.precio,")
@@ -63,16 +62,15 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda {
                     dt.setDescripcion(rs.getString(5));
                     dt.setEstado(rs.getString(6));
                     dt.setContacto(rs.getString(7));
-                    dt.setCantidad(rs.getInt(8));
-                    dt.setId_tienda(rs.getInt(9));
-                    dt.setId_usuario(rs.getInt(10));
+                    dt.setId_tienda(rs.getInt(8));
+                    dt.setId_usuario(rs.getInt(9));
 
-                    tie.setPrecio(rs.getFloat(11));
-                    tie.setImagenBase64(Base64.getEncoder().encodeToString(rs.getBytes(12))); // Convierte a Base64
+                    tie.setPrecio(rs.getFloat(10));
+                    tie.setImagenBase64(Base64.getEncoder().encodeToString(rs.getBytes(11))); // Convierte a Base64
                     dt.setTienda(tie);
 
-                    us.setNombre(rs.getString(13));
-                    us.setApellidos(rs.getString(14));
+                    us.setNombre(rs.getString(12));
+                    us.setApellidos(rs.getString(13));
                     dt.setUsuario(us);
                     lista.add(dt);
                 }
@@ -96,10 +94,9 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda {
                 .append("descripcion,")
                 .append("estado,")
                 .append("contacto,")
-                .append("cantidad,")
                 .append("id_tienda,")
                 .append("id_usuario")
-                .append(") VALUES (?,?,?,?,?,?,?,?,?)");
+                .append(") VALUES (?,?,?,?,?,?,?,?)");
         try (Connection c = bd.Conectar()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setString(1, detalles.getProducto());
@@ -108,9 +105,8 @@ public class DaoDetallesTiendaImpl implements DaoDetallesTienda {
             ps.setString(4, detalles.getDescripcion());
             ps.setString(5, detalles.getEstado());
             ps.setString(6, detalles.getContacto());
-            ps.setInt(7, detalles.getCantidad());
-            ps.setInt(8, detalles.getId_tienda());
-            ps.setInt(9, detalles.getId_usuario());
+            ps.setInt(7, detalles.getId_tienda());
+            ps.setInt(8, detalles.getId_usuario());
             int cont = ps.executeUpdate();
             if (cont == 0) {
                 mensaje = "0 filas insertadas";
