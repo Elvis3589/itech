@@ -23,27 +23,27 @@
                     <div class="product-info">
                         <div class="product-info-item">
                             <label>Vendedor:</label>
-                            <span>${detalle.getUsuario().getNombre()} ${detalle.getUsuario().getApellidos()}</span>
+                            <p>${detalle.getUsuario().getNombre()} ${detalle.getUsuario().getApellidos()}</p>
                         </div>
 
                         <div class="product-info-item">
                             <label>Producto o servicio:</label>
-                            <span>${detalle.getProducto()}</span>
+                            <p>${detalle.getProducto()}</p>
                         </div>
 
                         <div class="product-info-item">
                             <label>Tipo de Venta:</label>
-                            <span>${detalle.getTipo_venta()}</span>
+                            <p>${detalle.getTipo_venta()}</p>
                         </div>
 
                         <div class="product-info-item">
                             <label>Categoría:</label>
-                            <span>${detalle.getCategoria()}</span>
+                            <p>${detalle.getCategoria()}</p>
                         </div>
 
                         <div class="product-info-item">
                             <label>Cantidad:</label>
-                            <span>${detalle.getCantidad()}</span>
+                            <p>${detalle.getCantidad()}</p>
                         </div>
 
                         <div class="product-info-item">
@@ -53,28 +53,56 @@
 
                         <div class="product-info-item">
                             <label>Precio:</label>
-                            <span>S/${detalle.getTienda().getPrecio()}</span>
+                            <p>S/${detalle.getTienda().getPrecio()}</span>
                         </div>
 
                         <div class="product-info-item">
                             <label>Estado:</label>
-                            <span>${detalle.getEstado()}</span>
+                            <p>${detalle.getEstado()}</p>
                         </div>
 
                         <div class="product-info-item">
                             <label>Número de Contacto:</label>
-                            <span>${detalle.getContacto()}</span>
+                            <p>${detalle.getContacto()}</p>
                         </div>
 
                     </div>
 
                 </div>
+
+
+                <div class="contact-form">
+                    <div class="custom-header"> 
+                        <h1>Contactar al Vendedor</h1>
+                    </div>
+                    <form action="ContactoServlet?accion=REGISTRAR_CONTACTO" method="post" class="contact-form-inner">
+                        <input type="hidden" name="id_detalles_tienda" value="${detalle.getId_detalles_tienda()}">
+
+                        <div class="form-group">
+                            <label for="nombre_comprador">Nombre:</label>
+                            <input type="text" name="nombre_comprador" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email_comprador">Correo electrónico:</label>
+                            <input type="email" name="email_comprador" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea name="mensaje" rows="4" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="buttons">
+                            <button type="submit" class="contact-button">Enviar Mensaje</button>
+                            <button class="back-button" onclick="window.location.href = 'Tienda?accion=SEL'">Volver Atrás</button>
+                        </div>
+                    </form>
+                </div>
+
             </c:forEach>
 
         </div>
-        <div class="buttons">
-            <button class="contact-button">Contactar</button>
-            <button class="back-button" onclick="window.history.back()">Volver Atrás</button>
-        </div>
+
     </body>
 </html>

@@ -6,77 +6,92 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 400px; 
     margin: 20px auto 0;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.custom-header h1{
+
+.custom-header h1 {
     text-align: center;
     background-color: darkcyan;
     color: chartreuse;
-    padding: 20px;
+    padding: 10px;
 }
 
+
 h1 {
-    font-size: 28px;
+    font-size: 24px; 
 }
 
 .product-details {
     display: flex;
-    margin: 20px;
+    flex-direction: column; 
     align-items: center;
-}
-
-.product-image {
-    flex: 40%;
-    text-align: center;
-    margin-right: 20px;
+    margin: 20px;
 }
 
 .product-image img {
-    width: 500px;
-    height: 400px;
+    max-width: 100%;
+    height: auto;
     border-radius: 10px;
 }
 
 .product-info {
-    flex: 40%;
     padding: 20px;
+    text-align: center;
 }
-
 .product-info-item {
     margin-bottom: 15px;
-    text-align: left;
+    width: 100%;
+    float: center;
 }
+
+.product-info-item::after {
+    content: ""; 
+    display: table;
+    clear: both;
+}
+
 
 label {
     font-weight: bold;
     font-size: 18px;
+    line-height: 1.4; 
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 p {
     margin-top: 10px;
     font-size: 16px;
+    line-height: 1.4;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+
 .buttons {
     text-align: center;
     margin-top: 20px;
 }
 
 .contact-button, .back-button {
-    background-color: darkorange;
+    background-color: #007BFF;
     color: #fff;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 20px;
     margin-right: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .contact-button:hover, .back-button:hover {
-    background-color: #00ffcc;
+    background-color: #0055A4;
 }
 
 .back-button {
@@ -85,4 +100,19 @@ p {
 
 .back-button:hover {
     background-color: #AA0000;
+}
+
+.contact-form .form-group textarea {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; 
+    width: 94%; 
+    padding: 10px; 
+}
+.contact-form .form-group input {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; 
+    width: 94%; 
+    padding: 10px; 
 }

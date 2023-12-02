@@ -162,7 +162,6 @@ public List<Tienda> obtenerMaterialesDestacadosPremium() {
                         resultSet.getInt("id_usuario")
                 );
 
-                // Asegúrate de tener el método setImagenBase64 en la clase Tienda
                 material.convertirImagenBase64();
 
                 materialesPremium.add(material);
