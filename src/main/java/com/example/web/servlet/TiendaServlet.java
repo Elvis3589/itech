@@ -44,7 +44,7 @@ public class TiendaServlet extends HttpServlet {
         String target = "";
         String mensaje = null;
 
-if (accion.equals("SEL")) {
+        if (accion.equals("SEL")) {
             List<Tienda> lista = null;
             try {
                 lista = dao.tiendaSel();
@@ -72,7 +72,6 @@ if (accion.equals("SEL")) {
             dt.setId_usuario(Integer.valueOf(request.getParameter("id_usuario")));
             byte[] imagenBytes = null;
 
-            // Procesar imagen o multimedia
             if (filepart != null && filepart.getSize() > 0) {
                 try (InputStream input = filepart.getInputStream()) {
                     imagenBytes = input.readAllBytes();
