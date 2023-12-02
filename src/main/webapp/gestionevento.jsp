@@ -15,6 +15,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registrar Evento Universitario</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
+        
+         <script type="text/javascript">
+            function confirmarRegistro() {
+                var respuesta = confirm("¿Estás seguro de que deseas registrar este evento?");
+                if (respuesta) {
+                    document.getElementById("formularioRegistro").submit();
+                } else {
+                }
+            }
+        </script>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
@@ -35,7 +45,7 @@
             <div class="header">
                 <h1>Registrar Evento Universitario</h1>
             </div>
-            <form method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data">
+            <form id="formularioRegistro" method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data">
                 <%
                     Usuario usuario = (Usuario) session.getAttribute("usuario");
 
@@ -119,7 +129,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="submit-button">Registrar Evento</button>
+                    <button type="button" class="submit-button" onclick="confirmarRegistro()">Registrar Evento</button>
                 </div>
                 <%
                     } else {

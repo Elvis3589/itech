@@ -9,6 +9,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Detalles del evento</title>
+
+
+        <script type="text/javascript">
+            function confirmarReserva() {
+                var respuesta = confirm("¿Estás seguro de que deseas reservar este evento?");
+                if (respuesta) {
+                    document.getElementById("formularioReserva").submit();
+                } else {
+                }
+            }
+        </script>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
@@ -82,10 +93,10 @@
             </div>
             <div class="buttons">
                 <% if (mostrarBotonReserva) {%>
-                <form action="EventoServlet" method="post">
+                <form id="formularioReserva" action="EventoServlet" method="post">
                     <input type="hidden" name="accion" value="RESERVAR_EVENTO">
                     <input type="hidden" name="idEvento" value="<%= evento.getIdEvento()%>">
-                    <button class="contact-button" type="submit">Reservar evento</button>
+                    <button class="contact-button" type="button" onclick="confirmarReserva()">Reservar evento</button>
                 </form>
                 <% } %>
 
@@ -101,3 +112,12 @@
         </div>
     </body>
 </html>
+<script type="text/javascript">
+    function confirmarReserva() {
+        var respuesta = confirm("¿Estás seguro de que deseas reservar este evento?");
+        if (respuesta) {
+            document.getElementById("formularioReserva").submit();
+        } else {
+        }
+    }
+</script>

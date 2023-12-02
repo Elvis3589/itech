@@ -138,6 +138,8 @@
                                 </div>
                                 <div class="comment-body">
                                     <p class="comment-text">${comentario.contenido}</p>
+                                    <p class="text-body-secondary">${comentario.fechaComentario}</p> 
+
                                 </div>
                             </div>
                         </c:forEach>

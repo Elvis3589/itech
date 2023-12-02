@@ -143,7 +143,7 @@ public class EventoServlet extends HttpServlet {
                 int idUsuario = usuario.getIdUsuario();
 
                 if (daoEvento.registrarReserva(idEvento, idUsuario)) {
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
                     return;
                 } else {
                     request.setAttribute("mensajeError", "Error al registrar la reserva del evento");

@@ -73,14 +73,26 @@ public class UsuarioServlet extends HttpServlet {
                 if (contraseniaActual != null && !contraseniaActual.isEmpty() && contraseniaGuardada != null && AESUtil.desencriptar(contraseniaGuardada).equals(AESUtil.encriptar(contraseniaActual))) {
                     String nuevaContraseniaEncriptada = AESUtil.encriptar(nuevaContrasenia);
                     if (daoUsuario.actualizarContraseñaUsuario(idUsuario, nuevaContraseniaEncriptada)) {
+                        response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
+                        return;
+
                     } else {
                         request.setAttribute("mensajeError", "Error al actualizar la contraseña: " + daoUsuario.getMensaje());
-                        target = "perfil.jsp";
+                        request.getRequestDispatcher("perfil.jsp").forward(request, response);
+                        return;
+
                     }
+
                 } else {
                     request.setAttribute("mensajeError", "La contraseña actual es incorrecta");
-                    target = "perfil.jsp";
+                    request.getRequestDispatcher("perfil.jsp").forward(request, response);
+                    return;
+
                 }
+            } else {
+                request.setAttribute("mensajeError", "La nueva contraseña y la confirmación de la nueva contraseña no coinciden");
+                request.getRequestDispatcher("perfil.jsp").forward(request, response);
+
             }
 
             Part filePart = request.getPart("imagen");
@@ -95,7 +107,8 @@ public class UsuarioServlet extends HttpServlet {
                     return;
                 } else {
                     request.setAttribute("mensajeError", "Error al actualizar la imagen: " + daoUsuario.getMensaje());
-                    target = "perfil.jsp";
+                    request.getRequestDispatcher("perfil.jsp").forward(request, response);
+                    return;
                 }
             } else {
                 response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");

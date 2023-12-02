@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoComentariosImpl implements DaoComentarios {
+
     private Conexion bd;
     private String mensaje;
 
@@ -26,8 +27,7 @@ public class DaoComentariosImpl implements DaoComentarios {
 
     @Override
     public void insertarComentario(Comentarios comentario) throws SQLException {
-        try (Connection conn = bd.Conectar();
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO comentarios (contenido, id_usuario, id_publicacion) VALUES (?, ?, ?)")) {
+        try (Connection conn = bd.Conectar(); PreparedStatement pstmt = conn.prepareStatement("INSERT INTO comentarios (contenido, id_usuario, id_publicacion) VALUES (?, ?, ?)")) {
             pstmt.setString(1, comentario.getContenido());
             pstmt.setInt(2, comentario.getId_usuario());
             pstmt.setInt(3, comentario.getId_publicacion());
@@ -35,11 +35,10 @@ public class DaoComentariosImpl implements DaoComentarios {
         }
     }
 
-      @Override
+    @Override
     public List<Comentarios> obtenerComentariosPorPublicacion(int idPublicacion) throws SQLException {
         List<Comentarios> comentarios = new ArrayList<>();
-        try (Connection conn = bd.Conectar();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT c.*, u.nombre, u.apellidos FROM comentarios c JOIN usuarios u ON c.id_usuario = u.id_usuario WHERE c.id_publicacion = ?")) {
+        try (Connection conn = bd.Conectar(); PreparedStatement pstmt = conn.prepareStatement("SELECT c.*, u.nombre, u.apellidos FROM comentarios c JOIN usuarios u ON c.id_usuario = u.id_usuario WHERE c.id_publicacion = ?")) {
             pstmt.setInt(1, idPublicacion);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -48,8 +47,8 @@ public class DaoComentariosImpl implements DaoComentarios {
                     comentario.setContenido(rs.getString("contenido"));
                     comentario.setId_usuario(rs.getInt("id_usuario"));
                     comentario.setId_publicacion(rs.getInt("id_publicacion"));
+                    comentario.setFechaComentario(rs.getTimestamp("fecha_comentario"));
 
-                    // Cargar información del usuario
                     Usuario usuario = new Usuario();
                     usuario.setIdUsuario(rs.getInt("id_usuario"));
                     usuario.setNombre(rs.getString("nombre"));
