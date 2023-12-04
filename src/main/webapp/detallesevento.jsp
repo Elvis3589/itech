@@ -39,6 +39,19 @@
                 if (evento != null) {
             %>
             <div class="product-details">
+                <% String mensajeError = (String) request.getAttribute("mensajeError"); %>
+                <% if (mensajeError != null && !mensajeError.isEmpty()) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%= mensajeError%>
+                </div>
+                <% } %>
+
+                <% String mensajeExito = (String) request.getAttribute("mensajeExito");
+                    if (mensajeExito != null && !mensajeExito.isEmpty()) {%>
+                <div class="alert alert-success" role="alert">
+                    <%= mensajeExito%>
+                </div>
+                <% }%>
                 <div class="product-image">
                     <img src="data:image/png;base64,<%= Base64.getEncoder().encodeToString(evento.getImagenEvento())%>" alt="Imagen del Evento">
                 </div>
@@ -100,7 +113,7 @@
                 </form>
                 <% } %>
 
-                <button class="back-button" onclick="window.history.back()">Volver Atrás</button>
+                <button class="back-button" onclick="window.location.href = 'EventoServlet?accion=MOSTRAR_EVENTOS'">Volver Atrás</button>
             </div>
             <%
             } else {
@@ -112,12 +125,3 @@
         </div>
     </body>
 </html>
-<script type="text/javascript">
-    function confirmarReserva() {
-        var respuesta = confirm("¿Estás seguro de que deseas reservar este evento?");
-        if (respuesta) {
-            document.getElementById("formularioReserva").submit();
-        } else {
-        }
-    }
-</script>

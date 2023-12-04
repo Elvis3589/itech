@@ -15,6 +15,8 @@
             </div>
             <c:forEach var="detalle" items="${detalles}">
                 <div class="product-details">
+
+
                     <div class="product-image">
                         <img src="data:image/jpeg;base64,${detalle.getTienda().getImagenBase64()}" alt="Imagen del Producto"/>
 
@@ -48,7 +50,7 @@
 
                         <div class="product-info-item">
                             <label>Precio:</label>
-                            <p>S/${detalle.getTienda().getPrecio()}</span>
+                            <p>S/${detalle.getTienda().getPrecio()}<p>
                         </div>
 
                         <div class="product-info-item">
@@ -72,7 +74,19 @@
                     </div>
                     <form action="ContactoServlet?accion=REGISTRAR_CONTACTO" method="post" class="contact-form-inner">
                         <input type="hidden" name="id_detalles_tienda" value="${detalle.getId_detalles_tienda()}">
+                        <% String mensajeError = (String) request.getAttribute("mensajeError"); %>
+                        <% if (mensajeError != null && !mensajeError.isEmpty()) {%>
+                        <div class="alert alert-danger" role="alert">
+                            <%= mensajeError%>
+                        </div>
+                        <% } %>
 
+                        <% String mensajeExito = (String) request.getAttribute("mensajeExito");
+                        if (mensajeExito != null && !mensajeExito.isEmpty()) {%>
+                        <div class="alert alert-success" role="alert">
+                            <%= mensajeExito%>
+                        </div>
+                        <% }%>
                         <div class="form-group">
                             <label for="nombre_comprador">Nombre:</label>
                             <input type="text" name="nombre_comprador" class="form-control" required>

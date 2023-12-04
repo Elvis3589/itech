@@ -100,12 +100,14 @@ public class EventoServlet extends HttpServlet {
                 );
 
                 if (daoEvento.registrarEvento(nuevoEvento)) {
-                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
+                    request.setAttribute("mensajeExito", "Evento registrado exitosamente.");
+                    request.getRequestDispatcher("gestionevento.jsp").forward(request, response);
                     return;
                 } else {
                     request.setAttribute("mensajeError", "Error al registrar el evento");
                     target = "gestionevento.jsp";
                 }
+
             }
 
         } else if (accion.equals("MOSTRAR_EVENTOS")) {
@@ -142,12 +144,18 @@ public class EventoServlet extends HttpServlet {
             if (usuario != null) {
                 int idUsuario = usuario.getIdUsuario();
 
-                if (daoEvento.registrarReserva(idEvento, idUsuario)) {
-                    response.sendRedirect("EventoServlet?accion=MOSTRAR_DATOS_PRINCIPALES");
-                    return;
-                } else {
-                    request.setAttribute("mensajeError", "Error al registrar la reserva del evento");
+                if (daoEvento.haReservadoEvento(idEvento, idUsuario)) {
+                    request.setAttribute("mensajeError", "Ya has reservado este evento antes.");
                     target = "detallesevento.jsp?id=" + idEvento;
+                } else {
+                    if (daoEvento.registrarReserva(idEvento, idUsuario)) {
+                        request.setAttribute("mensajeExito", "Evento reservado exitosamente.");
+                        request.getRequestDispatcher("detallesevento.jsp?id=" + idEvento).forward(request, response);
+                        return;
+                    } else {
+                        request.setAttribute("mensajeError", "Error al registrar la reserva del evento");
+                        target = "detallesevento.jsp?id=" + idEvento;
+                    }
                 }
             } else {
                 request.setAttribute("mensajeError", "Usuario no encontrado en la sesión");

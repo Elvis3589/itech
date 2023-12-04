@@ -194,6 +194,28 @@ public class DaoEventoImpl implements DaoEvento {
             return false;
         }
     }
+    
+@Override
+public boolean haReservadoEvento(int idEvento, int idUsuario) {
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT COUNT(*) FROM reservas WHERE id_evento = ? AND id_usuario = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idEvento);
+            preparedStatement.setInt(2, idUsuario);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0; 
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
 
     @Override
     public List<Eventos> obtenerEventosReservadosPorUsuario(int idUsuario) {

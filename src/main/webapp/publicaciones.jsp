@@ -97,13 +97,13 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-9">
-                                            <textarea class="form-control" id="texto" name="texto_descripcion" rows="4" placeholder="Escribe aquí"></textarea>
+                                            <textarea class="form-control" id="texto" name="texto_descripcion" rows="4" placeholder="Escribe aquí" required></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="col-3 col-form-label">Selecciona una imagen</label>
                                         <div class="col-9">
-                                            <input type="file" class="form-control" id="imagen" name="archivo_imagen">
+                                            <input type="file" class="form-control" id="imagen" name="archivo_imagen" required>
                                         </div>
                                         <input type="hidden" name="id_usuario" value="${id_usuario}">
                                         <input type="hidden" name="accion" value="INS">
@@ -144,7 +144,7 @@
                     <form action="ComentarioServlet?accion=REGISTRAR_COMENTARIO" method="POST">
                         <input type="hidden" name="id_usuario" value="${id_usuario}">
                         <input type="hidden" name="id_publicacion" value="${publicacion.getId_publicacion()}">
-                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
+                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario..." required>
                         <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
                     </form>
 

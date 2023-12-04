@@ -29,6 +29,13 @@
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" name="contrasenia" required>
                     </div>
+
+                    <% String mensajeError = (String) request.getAttribute("mensajeError"); %>
+                    <% if (mensajeError != null && !mensajeError.isEmpty()) {%>
+                    <div class="alert alert-danger" role="alert">
+                        <%= mensajeError%>
+                    </div>
+                    <% }%>
                     <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                 </form>
                 <p class="login-form__link">¿No tienes una cuenta? <a href="registro.jsp" class="register-link">Regístrate aquí</a></p>

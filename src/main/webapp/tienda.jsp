@@ -89,11 +89,11 @@
 
                                 <div>
                                     <label for="titulo" class="form-label">Título</label>
-                                    <input type="text" name="texto_titulo" id="titulo" placeholder="Título o nombre de producto">
+                                    <input type="text" name="texto_titulo" id="titulo" placeholder="Título o nombre de producto" required>
                                 </div>
                                 <div>
                                     <label for="tipo_venta" class="form-label">Tipo de venta</label>
-                                    <select name="texto_tipo" id="tipo_venta">
+                                    <select name="texto_tipo" id="tipo_venta" required>
                                         <option selected>Selecciona</option>
                                         <option value="Venta">Venta</option>
                                         <option value="Intercambio">Intercambio</option>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div>
                                     <label for="categoria" class="form-label">Categoría</label>
-                                    <select name="texto_categoria" id="categoria">
+                                    <select name="texto_categoria" id="categoria" required>
                                         <option selected>Selecciona</option>
                                         <option value="Apuntes">Apuntes</option>
                                         <option value="Libros">Libros</option>
@@ -111,20 +111,20 @@
                                 </div>
                                 <div>
                                     <label class="form-label">Subir imagen</label>
-                                    <input name="archivo_imagen" type="file" id="imagen">
+                                    <input name="archivo_imagen" type="file" id="imagen" required>
                                 </div>
 
                                 <div>
                                     <label for="descripcion" class="form-label">Descripción</label>
-                                    <textarea name="texto_descripcion" id="descripcion" rows="3"></textarea>
+                                    <textarea name="texto_descripcion" id="descripcion" rows="3" required></textarea>
                                 </div>
                                 <div>
                                     <label for="precio" class="form-label">Precio</label>
-                                    <input type="number" name="texto_precio" id="precio" min="0" step="0.01">
+                                    <input type="number" name="texto_precio" id="precio" min="0" step="0.01" pattern="[0-9]" title="Ingrese el precio correcto" required>
                                 </div>
                                 <div>
-                                    <label for="estado" class="form-label">Estado</label>
-                                    <select name="texto_estado" id="estado">
+                                    <label for="estado" class="form-label" >Estado</label>
+                                    <select name="texto_estado" id="estado" required>
                                         <option selected>Selecciona</option>
                                         <option value="Nuevo">Nuevo</option>
                                         <option value="Usado">Usado</option>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div>
                                     <label for="contacto" class="form-label">Número de contacto</label>
-                                    <input type="text" name="texto_contacto" id="contacto" pattern="[0-9]{9}" placeholder="9 dígitos">
+                                    <input type="text" name="texto_contacto" id="contacto" maxlength="9" pattern="[0-9]{9}" title="Ingrese solo números de 9 dígitos" required>
                                     <input type="hidden" name="id_usuario" value="${id_usuario}">
                                 </div>
 

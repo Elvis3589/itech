@@ -57,7 +57,11 @@ public class UsuarioServlet extends HttpServlet {
                     response.sendRedirect("login.jsp");
                     return;
                 } else {
-                    request.setAttribute("mensajeError", "Error al registrar el usuario: " + daoUsuario.getMensaje());
+                    if (daoUsuario.getMensaje().equals("Ya existe un usuario con el mismo DNI")) {
+                        request.setAttribute("mensajeError", "Ya existe un usuario con el mismo DNI");
+                    } else {
+                        request.setAttribute("mensajeError", "Error al registrar el usuario: " + daoUsuario.getMensaje());
+                    }
                     target = "registro.jsp";
                 }
             }

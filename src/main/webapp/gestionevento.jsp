@@ -15,16 +15,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registrar Evento Universitario</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
-        
-         <script type="text/javascript">
+
+        <script type="text/javascript">
             function confirmarRegistro() {
-                var respuesta = confirm("¿Estás seguro de que deseas registrar este evento?");
-                if (respuesta) {
-                    document.getElementById("formularioRegistro").submit();
-                } else {
+                var formulario = document.getElementById("formularioRegistro");
+
+                if (!formulario.checkValidity()) {
+                    return false;
                 }
+
+                var respuesta = confirm("¿Estás seguro de que deseas registrar este evento?");
+                return respuesta;
             }
         </script>
+
     </head>
     <body>
         <%@include file="WEB-INF/jspf/enlaces.jspf" %>
@@ -45,12 +49,27 @@
             <div class="header">
                 <h1>Registrar Evento Universitario</h1>
             </div>
-            <form id="formularioRegistro" method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data">
+            <form id="formularioRegistro" method="post" action="EventoServlet?accion=REGISTRAR_EVENTO" class="event-form" enctype="multipart/form-data" onsubmit="return confirmarRegistro()">
                 <%
                     Usuario usuario = (Usuario) session.getAttribute("usuario");
 
                     if (usuario != null) {
                 %>
+
+                <% String mensajeError = (String) request.getAttribute("mensajeError"); %>
+                <% if (mensajeError != null && !mensajeError.isEmpty()) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%= mensajeError%>
+                </div>
+                <% } %>
+
+                <% String mensajeExito = (String) request.getAttribute("mensajeExito");
+                    if (mensajeExito != null && !mensajeExito.isEmpty()) {%>
+                <div class="alert alert-success" role="alert">
+                    <%= mensajeExito%>
+                </div>
+                <% }%>
+
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" value="<%= usuario.getNombre()%>"  required readonly>
@@ -78,7 +97,7 @@
 
                 <div class="form-group">
                     <label for="hora">Hora:</label>
-                    <input type="text" name="hora" required>
+                    <input type="text" name="hora" required maxlength="7">
                 </div>
 
                 <div class="form-group">
@@ -88,7 +107,7 @@
 
                 <div class="form-group">
                     <label for="celular">Nº de Celular:</label>
-                    <input type="text" name="celular" required>
+                    <input type="text" name="celular" required maxlength="9" pattern="\d{9}" title="Ingrese solo números de 9 dígitos">
                 </div>
 
                 <div class="form-group">
@@ -100,8 +119,8 @@
                     <label for="maxCantidad">Máxima Cantidad de Asistentes:</label>
                     <input type="number" name="maxCantidad" required
                            <% if (request.getAttribute("maxCantidadAsistentes") != null) {
-                   out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
-               } %>
+                                   out.print("max=\"" + request.getAttribute("maxCantidadAsistentes") + "\"");
+                               } %>
                            <%
                                if (usuario != null) {
                                    boolean tienePremium = daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario());
@@ -109,7 +128,7 @@
                                    out.print("max=\"" + maxCantidadAsistentes + "\"");
                                }
                            %>
-                           >
+                           maxlength="2" pattern="[0-9]{2}" title="Ingrese una cantidad valida">
                     <small class="form-text text-muted">
                         <%
                             if (usuario != null) {
@@ -129,13 +148,11 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="submit-button" onclick="confirmarRegistro()">Registrar Evento</button>
+                    <button type="submit" class="submit-button">Registrar Evento</button>
                 </div>
-                <%
-                    } else {
-                        out.println("Usuario no encontrado en la sesión. Inicie sesión para acceder a esta página.");
-                    }
-                %>
+                <% } else { %>
+                <p>Usuario no encontrado en la sesión. Inicie sesión para acceder a esta página.</p>
+                <% }%>
             </form>
         </div>
     </body>

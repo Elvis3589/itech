@@ -11,14 +11,16 @@
         <div class="form-container">
             <div class="conta">
                 <h2 class="login-form__title">Regístrate</h2>
+
+
                 <form class="login-form" action="UsuarioServlet?accion=INS" method="post">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" required>
+                        <input type="text" id="nombre" name="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+" title="Ingrese solo letras">
                     </div>
                     <div class="form-group">
                         <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="apellidos" required>
+                        <input type="text" id="apellido" name="apellidos" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+" title="Ingrese solo letras">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -26,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI</label>
-                        <input type="text" id="dni" name="dni" required>
+                        <input type="text" id="dni" name="dni" required maxlength="8" pattern="[0-9]{8}" title="Ingrese solo números de 8 dígitos">
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
@@ -36,6 +38,13 @@
                         <label for="confirmPassword">Repetir Contraseña</label>
                         <input type="password" id="confirmPassword" name="confirmContrasenia" required>
                     </div>
+
+                    <% String mensajeError = (String) request.getAttribute("mensajeError"); %>
+                    <% if (mensajeError != null && !mensajeError.isEmpty()) {%>
+                    <div class="alert alert-danger" role="alert">
+                        <%= mensajeError%>
+                    </div>
+                    <% }%>
 
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </form>

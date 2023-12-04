@@ -1,5 +1,7 @@
 {
-    "elements": {},
+    "elements": {
+        "c:if": {}
+    },
     "attributes": {
         "\"comment-header\"": {
             "context": "div"

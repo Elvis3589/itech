@@ -21,14 +21,14 @@
                     <div class="nombre">
 
                         <label for="nombre" class="premium-label">Nombre en la Tarjeta:</label>
-                        <input type="text" name="nombre" class="premium-input" required>
+                        <input type="text" name="nombre" class="premium-input" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+" title="Ingrese solo letras">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="numero">
 
                         <label for="numeroTarjeta" class="premium-label">Número de Tarjeta:</label>
-                        <input type="text" name="numeroTarjeta" class="premium-input" required>
+                        <input type="text" name="numeroTarjeta" class="premium-input" required maxlength="16" pattern="[0-9]{16}" title="Ingrese solo números de 16 dígitos">
                     </div>
 
                 </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="ccv">
                         <label for="codigoSeguridad" class="premium-label">CVV:</label>
-                        <input type="text" name="codigoSeguridad" class="premium-input" required>
+                        <input type="text" name="codigoSeguridad" class="premium-input" required maxlength="3" pattern="[0-9]{3}" title="Ingrese solo números de 3 dígitos">
                     </div>
                     <div class="monto-pago">
                         <label for="montoPago" class="premium-label">Pago:</label>

@@ -31,7 +31,7 @@
                     <form action="ComentarioServlet?accion=REGISTRAR_COMENTARIO2" method="POST">
                         <input type="hidden" name="id_usuario" value="${id_usuario}">
                         <input type="hidden" name="id_publicacion" value="${publicacion.getId_publicacion()}">
-                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario...">
+                        <input class="comment-input" name="texto_comentario" type="text" placeholder="Escribe tu comentario..." required>
                         <button type="submit" class="comment-button" style="width: 15%;">Enviar</button> 
                     </form>
 
