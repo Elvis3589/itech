@@ -3,6 +3,11 @@ package com.example.dao.impl;
 import com.example.config.Conexion;
 import com.example.dao.DaoEvento;
 import com.example.entidades.Eventos;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +15,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 public class DaoEventoImpl implements DaoEvento {
 
@@ -323,6 +337,32 @@ public class DaoEventoImpl implements DaoEvento {
         }
 
         return cantidadReservas;
+    }
+
+    @Override
+    public JasperPrint reporteEvento(int id_evento, int user) {
+        try (Connection con = conexion.Conectar()) {
+            InputStream is = getClass().getResourceAsStream("/reporte/evento3.jasper");
+            if (is == null) {
+                System.out.println("El recurso no se pudo cargar.");
+                return null;
+            }
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("id", id_evento);
+            parametros.put("user", user);
+            JasperReport jr = (JasperReport) JRLoader.loadObject(is);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, con);
+            return jp;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoEventoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro en primer catch" + ex);
+        } catch (JRException ex) {
+            Logger.getLogger(DaoEventoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro en segundo catch" + ex);
+        }
+
+        return null;
     }
 
 }

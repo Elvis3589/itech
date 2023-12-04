@@ -28,6 +28,10 @@
         <servlet-name>ComentarioServlet</servlet-name>
         <servlet-class>com.example.web.servlet.ComentarioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReporteServlet</servlet-name>
+        <servlet-class>com.example.web.servlet.ReporteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EventoServlet</servlet-name>
         <url-pattern>/EventoServlet</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>ComentarioServlet</servlet-name>
         <url-pattern>/ComentarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteServlet</servlet-name>
+        <url-pattern>/Reporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

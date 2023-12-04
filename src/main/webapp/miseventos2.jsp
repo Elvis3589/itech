@@ -45,6 +45,9 @@
                         <h2><%= evento.getNombreEvento()%></h2>
                         <p><%= evento.getDescripcion()%></p>
                     </div>
+                    <div class="botonPdf">
+                        <a href="Reporte?op=view&id=<%= evento.getIdEvento()%>&user=${id_usuario}" target="_blank"><button class="imprimirPdf">Imprimir</button></a>
+                    </div>
                 </div>
                 <% }
             } else { %>

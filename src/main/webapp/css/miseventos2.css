@@ -37,6 +37,26 @@ body {
     transform: scale(1.02);
 }
 
+.botonPdf {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.imprimirPdf {
+    background-color: darkorange;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    margin-left: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.imprimirPdf:hover {
+    background-color: #8B4000;
+}
+
 .imagen-evento {
     width: 30%;
     float: left;

@@ -3,6 +3,7 @@ package com.example.dao;
 import com.example.entidades.Eventos;
 
 import java.util.List;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public interface DaoEvento {
 
@@ -23,4 +24,6 @@ public interface DaoEvento {
     List<Eventos> obtenerEventosPremium();
     
     int obtenerCantidadReservasPorEvento(int idEvento);
+    
+    JasperPrint reporteEvento(int id_evento, int user);
 }
