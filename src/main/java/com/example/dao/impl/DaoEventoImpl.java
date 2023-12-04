@@ -373,6 +373,7 @@ public boolean haReservadoEvento(int idEvento, int idUsuario) {
             parametros.put("id", id_evento);
             parametros.put("user", user);
             parametros.put("logo", rutaImg);
+            parametros.put("imagen", imagen(id_evento));
             JasperReport jr = (JasperReport) JRLoader.loadObject(is);
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, con);
             return jp;
@@ -386,6 +387,31 @@ public boolean haReservadoEvento(int idEvento, int idUsuario) {
         }
 
         return null;
+    }
+
+    @Override
+    public InputStream imagen(int id) {
+        StringBuilder sql = new StringBuilder();
+        InputStream img = null;
+        sql.append("SELECT ")
+                .append("imagen_evento")
+                .append(" FROM eventos")
+                .append(" WHERE id_evento = ?");
+        
+        try (Connection con = conexion.Conectar()){
+            PreparedStatement ps = con.prepareStatement(sql.toString());
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                img = rs.getBinaryStream(1);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error en InputStream imagen: " + e);
+        }
+        
+        return img;
     }
 
 }

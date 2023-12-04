@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.entidades.Eventos;
+import java.io.InputStream;
 
 import java.util.List;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -28,4 +29,6 @@ public interface DaoEvento {
     JasperPrint reporteEvento(int id_evento, int user, String rutaImg);
     
     boolean haReservadoEvento(int idEvento, int idUsuario);
+    
+    InputStream imagen(int id);
 }
