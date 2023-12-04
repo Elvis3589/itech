@@ -1,9 +1,16 @@
+<%@page import="com.example.dao.impl.DaoPremiumImpl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.Base64"%>
 <%@page import="com.example.entidades.Usuario"%>
 <%@page import="com.example.entidades.Publicacion"%>
+<%@page import="com.example.dao.DaoPremium"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
+<%
+    DaoPremium daoPremium = new DaoPremiumImpl();
+%>
 <!DOCTYPE html>
 <html>
 
@@ -21,6 +28,8 @@
                     <%
                         Usuario usuario = (Usuario) session.getAttribute("usuario");
                         byte[] imagen = (usuario != null && usuario.getImagen() != null) ? usuario.getImagen() : null;
+                        boolean esPremium = (usuario != null && daoPremium.tieneSuscripcionPremium(usuario.getIdUsuario()));
+
                     %>
 
                     <% if (imagen != null) {%>
@@ -50,6 +59,16 @@
                         Rol de Usuario
                         <% }%>
                     </p>
+                    <% if (esPremium) { %>
+                    <p class="card-text" style="text-align: center; margin-bottom: 40px; color: green; font-weight: bold;">
+                        Usuario Premium
+                    </p>
+                    <% } else { %>
+                    <p class="card-text" style="text-align: center; margin-bottom: 40px; color: red; font-weight: bold;">
+                        Usuario no Premium
+                    </p>
+                    <% }%>
+
 
                     <div class="button-container">
                         <button type="button" class="btn btn-success" id="eventosButton">Eventos</button>
