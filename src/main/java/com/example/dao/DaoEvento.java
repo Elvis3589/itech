@@ -25,7 +25,7 @@ public interface DaoEvento {
     
     int obtenerCantidadReservasPorEvento(int idEvento);
     
-    JasperPrint reporteEvento(int id_evento, int user);
+    JasperPrint reporteEvento(int id_evento, int user, String rutaImg);
     
     boolean haReservadoEvento(int idEvento, int idUsuario);
 }

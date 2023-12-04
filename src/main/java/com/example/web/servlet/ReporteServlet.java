@@ -36,10 +36,11 @@ public class ReporteServlet extends HttpServlet {
         String op = request.getParameter("op");
         int id = Integer.parseInt(request.getParameter("id"));
         int user = Integer.parseInt(request.getParameter("user"));
+        String rutaImg = request.getServletContext().getRealPath("/") + "img/logo.png";
 
         switch (op) {
             case "view":
-                JasperPrint jp = dao.reporteEvento(id,user);
+                JasperPrint jp = dao.reporteEvento(id,user,rutaImg);
                 if (jp != null) {
                     try {
                         exportarPDF(response, jp);

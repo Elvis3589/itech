@@ -362,9 +362,9 @@ public boolean haReservadoEvento(int idEvento, int idUsuario) {
     }
 
     @Override
-    public JasperPrint reporteEvento(int id_evento, int user) {
+    public JasperPrint reporteEvento(int id_evento, int user, String rutaImg) {
         try (Connection con = conexion.Conectar()) {
-            InputStream is = getClass().getResourceAsStream("/reporte/evento3.jasper");
+            InputStream is = getClass().getResourceAsStream("/reporte/evento4.jasper");
             if (is == null) {
                 System.out.println("El recurso no se pudo cargar.");
                 return null;
@@ -372,6 +372,7 @@ public boolean haReservadoEvento(int idEvento, int idUsuario) {
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id_evento);
             parametros.put("user", user);
+            parametros.put("logo", rutaImg);
             JasperReport jr = (JasperReport) JRLoader.loadObject(is);
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, con);
             return jp;
