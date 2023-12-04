@@ -46,7 +46,7 @@ public boolean registrarUsuario(Usuario usuario) {
             int filasAfectadas = preparedStatement.executeUpdate();
 
             if (filasAfectadas > 0) {
-                mensaje = "Usuario registrado correctamente";
+                mensaje = "Usuario registrado correctamente ";
                 return true;
             } else {
                 mensaje = "No se pudo registrar el usuario";
