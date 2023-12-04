@@ -19,36 +19,48 @@ public class ContactoServlet extends HttpServlet {
         daoContacto = new DaoContactoImpl();
     }
 
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
-    String accion = request.getParameter("accion");
-    accion = (accion == null) ? "" : accion;
-    String target = "";
-    if (accion.equals("REGISTRAR_CONTACTO")) {
-        int idDetallesTienda = Integer.parseInt(request.getParameter("id_detalles_tienda"));
-        String nombreComprador = request.getParameter("nombre_comprador");
-        String emailComprador = request.getParameter("email_comprador");
-        String mensaje = request.getParameter("mensaje");
+        String accion = request.getParameter("accion");
+        accion = (accion == null) ? "" : accion;
+        String target = "";
+        if (accion.equals("REGISTRAR_CONTACTO")) {
+            int idDetallesTienda = Integer.parseInt(request.getParameter("id_detalles_tienda"));
+            String nombreComprador = request.getParameter("nombre_comprador");
+            String emailComprador = request.getParameter("email_comprador");
+            String mensaje = request.getParameter("mensaje");
 
-        Contacto contacto = new Contacto();
-        contacto.setId_detalles_tienda(idDetallesTienda);
-        contacto.setNombre_comprador(nombreComprador);
-        contacto.setEmail_comprador(emailComprador);
-        contacto.setMensaje(mensaje);
-        String resultado = daoContacto.registrarContacto(contacto);
-        
-        request.setAttribute("mensajeExito", "El contacto fue realizado");
+            Contacto contacto = new Contacto();
+            contacto.setId_detalles_tienda(idDetallesTienda);
+            contacto.setNombre_comprador(nombreComprador);
+            contacto.setEmail_comprador(emailComprador);
+            contacto.setMensaje(mensaje);
+            String resultado = daoContacto.registrarContacto(contacto);
 
-        response.sendRedirect("Detalles?id=" + idDetallesTienda);
-        return;
+            request.setAttribute("mensajeExito", "El contacto fue realizado");
+
+            response.sendRedirect("Detalles?id=" + idDetallesTienda);
+            return;
+        } else if (accion.equals("ELIMINAR")) {
+            int idContacto = Integer.parseInt(request.getParameter("id"));
+            eliminarContacto(idContacto);
+
+            request.setAttribute("mensajeExito", "El contacto fue eliminado correctamente.");
+
+            response.sendRedirect("ContactoTienda.jsp");
+            return;
+        }
+
     }
-}
 
+    private void eliminarContacto(int idContacto) {
+        daoContacto.eliminarContacto(idContacto);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

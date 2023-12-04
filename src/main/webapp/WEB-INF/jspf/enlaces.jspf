@@ -63,6 +63,11 @@
     if (currentPage.endsWith("administrar.jsp")) { %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/administrar.css" />
 <% }%>
+
+<% currentPage = request.getRequestURI();
+    if (currentPage.endsWith("ContactoTienda.jsp")) { %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/ContactoTienda.css" />
+<% }%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/encabezado.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login_registro.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/publicaciones.css" />

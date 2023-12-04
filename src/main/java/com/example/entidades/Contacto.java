@@ -2,6 +2,12 @@ package com.example.entidades;
 
 import java.sql.Timestamp;
 
+import java.sql.Timestamp;
+
+import java.sql.Timestamp;
+
+import java.sql.Timestamp;
+
 public class Contacto {
     private Integer id_contacto;
     private Integer id_detalles_tienda;

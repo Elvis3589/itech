@@ -58,6 +58,7 @@
                             <c:if test="${sessionScope.esAdmin}">
                                 <a href="administrar.jsp">Administrar</a>
                             </c:if>
+                            <a href="ContactoTienda.jsp">Contacto</a>
                             <a href="login.jsp">Salir</a>
                         </div>
                     </li>
