@@ -143,7 +143,7 @@ public class UsuarioServlet extends HttpServlet {
                     request.setAttribute("mensajeError", "Contraseña incorrecta");
                 }
             } else {
-                System.out.println("Usuario no encontrado. Permaneciendo en login.jsp.");
+                request.setAttribute("mensajeError", "Email no registrado");
             }
         } else if (accion.equals("ADMINISTRAR")) {
             List<Usuario> listaUsuarios = daoUsuario.obtenerTodosLosUsuarios();
