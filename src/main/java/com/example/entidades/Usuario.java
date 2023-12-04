@@ -8,12 +8,13 @@ public class Usuario {
     private String email;
     private String contraseña;
     private byte[] imagen;
-    private String rol; 
+    private String rol;
+    private String dni;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombre, String apellidos, String email, String contraseña, byte[] imagen, String rol) {
+    public Usuario(int idUsuario, String nombre, String apellidos, String email, String contraseña, byte[] imagen, String rol, String dni) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -21,7 +22,9 @@ public class Usuario {
         this.contraseña = contraseña;
         this.imagen = imagen;
         this.rol = rol;
+        this.dni = dni;
     }
+
 
     public int getIdUsuario() {
         return idUsuario;
@@ -62,6 +65,7 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
     public byte[] getImagen() {
         return imagen;
     }
@@ -69,11 +73,19 @@ public class Usuario {
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
-        public String getRol() {
+
+    public String getRol() {
         return rol;
     }
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+   public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 }

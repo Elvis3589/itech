@@ -38,6 +38,7 @@ public class UsuarioServlet extends HttpServlet {
             String email = request.getParameter("email");
             String contraseña = request.getParameter("contrasenia");
             String confirmContraseña = request.getParameter("confirmContrasenia");
+            String dni = request.getParameter("dni");
 
             if (contraseña == null || confirmContraseña == null || !contraseña.equals(confirmContraseña)) {
                 request.setAttribute("mensajeError", "Las contraseñas no coinciden");
@@ -47,6 +48,7 @@ public class UsuarioServlet extends HttpServlet {
                 nuevoUsuario.setNombre(nombre);
                 nuevoUsuario.setApellidos(apellidos);
                 nuevoUsuario.setEmail(email);
+                nuevoUsuario.setDni(dni);
 
                 String encryptedContraseña = AESUtil.encriptar(contraseña);
                 nuevoUsuario.setContraseña(encryptedContraseña);
@@ -149,6 +151,7 @@ public class UsuarioServlet extends HttpServlet {
             String nuevoApellidos = request.getParameter("editarApellidos");
             String nuevoEmail = request.getParameter("editarEmail");
             String nuevoRol = request.getParameter("editarRol");
+            String nuevoDni = request.getParameter("editarDni");
 
             Usuario usuarioActualizado = new Usuario();
             usuarioActualizado.setIdUsuario(idUsuario);
@@ -156,6 +159,7 @@ public class UsuarioServlet extends HttpServlet {
             usuarioActualizado.setApellidos(nuevoApellidos);
             usuarioActualizado.setEmail(nuevoEmail);
             usuarioActualizado.setRol(nuevoRol);
+            usuarioActualizado.setDni(nuevoDni);
 
             if (daoUsuario.actualizarUsuario(usuarioActualizado)) {
                 response.sendRedirect("UsuarioServlet?accion=ADMINISTRAR");

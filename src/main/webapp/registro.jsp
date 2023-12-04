@@ -25,6 +25,10 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input type="text" id="dni" name="dni" required>
+                    </div>
+                    <div class="form-group">
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" name="contrasenia" required>
                     </div>

@@ -9,12 +9,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrar Usuarios</title>
         <script>
-            function mostrarUsuario(id, nombre, apellidos, email, rol) {
+            function mostrarUsuario(id, nombre, apellidos, email, rol, dni) {
                 document.getElementById('editarId').value = id;
                 document.getElementById('editarNombre').value = nombre;
                 document.getElementById('editarApellidos').value = apellidos;
                 document.getElementById('editarEmail').value = email;
                 document.getElementById('editarRol').value = rol;
+                document.getElementById('editarDni').value = dni;
             }
         </script>
     </head>
@@ -32,6 +33,7 @@
                 <th>Apellidos</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Dni</th>
                 <th>Acciones</th>
             </tr>
 
@@ -47,8 +49,9 @@
                 <td><%= usuario.getApellidos()%></td>
                 <td><%= usuario.getEmail()%></td>
                 <td><%= usuario.getRol()%></td>
+                <td><%= usuario.getDni()%></td>
                 <td>
-                    <a href="#" onclick="mostrarUsuario(<%= usuario.getIdUsuario()%>, '<%= usuario.getNombre()%>', '<%= usuario.getApellidos()%>', '<%= usuario.getEmail()%>', '<%= usuario.getRol()%>')">Mostrar</a>
+                    <a href="#" onclick="mostrarUsuario(<%= usuario.getIdUsuario()%>, '<%= usuario.getNombre()%>', '<%= usuario.getApellidos()%>', '<%= usuario.getEmail()%>', '<%= usuario.getRol()%>', '<%= usuario.getDni()%>')">Mostrar</a>
                     <a href="UsuarioServlet?accion=ELIMINAR&id=<%= usuario.getIdUsuario()%>">Eliminar</a>
                 </td>
             </tr>
@@ -66,9 +69,9 @@
                     <td><label for="editarId">ID:</label></td>
                     <td><input type="text" id="editarId" name="editarId" readonly></td>
                     <td><label for="editarNombre">Nombre:</label></td>
-                    <td><input type="text" id="editarNombre" name="editarNombre"></td>
+                    <td><input type="text" id="editarNombre" name="editarNombre" readonly></td>
                     <td><label for="editarApellidos">Apellidos:</label></td>
-                    <td><input type="text" id="editarApellidos" name="editarApellidos"></td>
+                    <td><input type="text" id="editarApellidos" name="editarApellidos" readonly></td>
                     <td></td>
                 </tr>
 
@@ -77,6 +80,8 @@
                     <td><input type="text" id="editarEmail" name="editarEmail" readonly></td>
                     <td><label for="editarRol">Rol:</label></td>
                     <td><input type="text" id="editarRol" name="editarRol"></td>
+                    <td><label for="editarDni">Dni:</label></td>
+                    <td><input type="text" id="editarDni" name="editarDni" readonly></td>
                     <td colspan="2">
                         <button type="submit" style="margin-top: 0px; margin-left: 0px; width: 100px;">Editar</button>
                     </td>

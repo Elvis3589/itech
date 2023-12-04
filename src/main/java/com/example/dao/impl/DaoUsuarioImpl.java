@@ -26,60 +26,79 @@ public class DaoUsuarioImpl implements DaoUsuario {
         return mensaje;
     }
 
-    @Override
-    public boolean registrarUsuario(Usuario usuario) {
-        try (Connection connection = conexion.Conectar()) {
-            String sql = "INSERT INTO usuarios(nombre, apellidos, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, usuario.getNombre());
-                preparedStatement.setString(2, usuario.getApellidos());
-                preparedStatement.setString(3, usuario.getEmail());
-
-                String encryptedContraseña = AESUtil.encriptar(usuario.getContraseña());
-                preparedStatement.setString(4, encryptedContraseña);
-
-                preparedStatement.setString(5, "usuario");
-
-                int filasAfectadas = preparedStatement.executeUpdate();
-
-                if (filasAfectadas > 0) {
-                    mensaje = "Usuario registrado correctamente";
-                    return true;
-                } else {
-                    mensaje = "No se pudo registrar el usuario";
-                    return false;
-                }
-            }
-        } catch (SQLException e) {
-            mensaje = "Error al registrar el usuario: " + e.getMessage();
+@Override
+public boolean registrarUsuario(Usuario usuario) {
+    try (Connection connection = conexion.Conectar()) {
+        if (existeUsuarioConDNI(connection, usuario.getDni())) {
+            mensaje = "Ya existe un usuario con el mismo DNI";
             return false;
         }
+
+        String sql = "INSERT INTO usuarios(nombre, apellidos, email, contraseña, rol, dni) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellidos());
+            preparedStatement.setString(3, usuario.getEmail());
+            preparedStatement.setString(4, AESUtil.encriptar(usuario.getContraseña()));
+            preparedStatement.setString(5, "usuario");
+            preparedStatement.setString(6, usuario.getDni()); 
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                mensaje = "Usuario registrado correctamente";
+                return true;
+            } else {
+                mensaje = "No se pudo registrar el usuario";
+                return false;
+            }
+        }
+    } catch (SQLException e) {
+        mensaje = "Error al registrar el usuario: " + e.getMessage();
+        return false;
     }
+}
+private boolean existeUsuarioConDNI(Connection connection, String dni) throws SQLException {
+    String sql = "SELECT COUNT(*) FROM usuarios WHERE dni = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setString(1, dni);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        }
+    }
+    return false;
+}
 
-    @Override
-    public Usuario obtenerUsuarioPorEmail(String email) {
-        try (Connection connection = conexion.Conectar()) {
-            String sql = "SELECT * FROM usuarios WHERE email = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, email);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int idUsuario = resultSet.getInt("id_usuario");
-                        String nombre = resultSet.getString("nombre");
-                        String apellidos = resultSet.getString("apellidos");
-                        String contraseña = resultSet.getString("contraseña");
-                        byte[] imagen = resultSet.getBytes("imagen");
-                        String rol = resultSet.getString("rol");
 
-                        return new Usuario(idUsuario, nombre, apellidos, email, contraseña, imagen, rol);
-                    }
+@Override
+public Usuario obtenerUsuarioPorEmail(String email) {
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, email);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int idUsuario = resultSet.getInt("id_usuario");
+                    String nombre = resultSet.getString("nombre");
+                    String apellidos = resultSet.getString("apellidos");
+                    String contraseña = resultSet.getString("contraseña");
+                    byte[] imagen = resultSet.getBytes("imagen");
+                    String rol = resultSet.getString("rol");
+                    String dni = resultSet.getString("dni");  
+
+                    return new Usuario(idUsuario, nombre, apellidos, email, contraseña, imagen, rol, dni);  
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return null;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return null;
+}
+
 
     @Override
     public boolean actualizarImagenUsuario(int idUsuario, byte[] imagen) {
@@ -99,50 +118,54 @@ public class DaoUsuarioImpl implements DaoUsuario {
         }
     }
 
-    @Override
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        try (Connection connection = conexion.Conectar()) {
-            String sql = "SELECT id_usuario, nombre, apellidos, email, rol FROM usuarios";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int idUsuario = resultSet.getInt("id_usuario");
-                        String nombre = resultSet.getString("nombre");
-                        String apellidos = resultSet.getString("apellidos");
-                        String email = resultSet.getString("email");
-                        String rol = resultSet.getString("rol");
+@Override
+public List<Usuario> obtenerTodosLosUsuarios() {
+    List<Usuario> usuarios = new ArrayList<>();
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "SELECT id_usuario, nombre, apellidos, email, rol, dni FROM usuarios";  
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int idUsuario = resultSet.getInt("id_usuario");
+                    String nombre = resultSet.getString("nombre");
+                    String apellidos = resultSet.getString("apellidos");
+                    String email = resultSet.getString("email");
+                    String rol = resultSet.getString("rol");
+                    String dni = resultSet.getString("dni");  
 
-                        usuarios.add(new Usuario(idUsuario, nombre, apellidos, email, null, null, rol));
-                    }
+                    usuarios.add(new Usuario(idUsuario, nombre, apellidos, email, null, null, rol, dni));  
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return usuarios;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return usuarios;
+}
 
-    @Override
-    public boolean actualizarUsuario(Usuario usuario) {
-        try (Connection connection = conexion.Conectar()) {
-            String sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, email = ?, rol = ? WHERE id_usuario = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, usuario.getNombre());
-                preparedStatement.setString(2, usuario.getApellidos());
-                preparedStatement.setString(3, usuario.getEmail());
-                preparedStatement.setString(4, usuario.getRol());
-                preparedStatement.setInt(5, usuario.getIdUsuario());
 
-                int filasAfectadas = preparedStatement.executeUpdate();
+@Override
+public boolean actualizarUsuario(Usuario usuario) {
+    try (Connection connection = conexion.Conectar()) {
+        String sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, email = ?, rol = ?, dni = ? WHERE id_usuario = ?"; 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellidos());
+            preparedStatement.setString(3, usuario.getEmail());
+            preparedStatement.setString(4, usuario.getRol());
+            preparedStatement.setString(5, usuario.getDni());  
+            preparedStatement.setInt(6, usuario.getIdUsuario());
 
-                return filasAfectadas > 0;
-            }
-        } catch (SQLException e) {
-            mensaje = "Error al actualizar el usuario: " + e.getMessage();
-            return false;
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            return filasAfectadas > 0;
         }
+    } catch (SQLException e) {
+        mensaje = "Error al actualizar el usuario: " + e.getMessage();
+        return false;
     }
+}
+
 
     @Override
     public boolean eliminarUsuario(int idUsuario) {
